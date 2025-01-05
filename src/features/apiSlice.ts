@@ -5,16 +5,20 @@ interface StartGameResponse {
   score: number;
   gold: number;
   lives: number;
+  level: number;
+  highScore: number;
+  turn: number;
 }
 
 interface Ad {
-  id: string;
-  content: string;
+  adId: string;
+  message: string;
+  reward: number;
+  expiresIn: number;
+  probability: string;
 }
 
-interface FetchAdsResponse {
-  ads: Ad[];
-}
+type FetchAdsResponse = Ad[];
 
 interface SolveAdPayload {
   gameId: string;
@@ -57,20 +61,20 @@ export const apiSlice = createApi({
       }),
     }),
     fetchAds: builder.query<FetchAdsResponse, string>({
-      query: (gameId) => `/game/${gameId}/messages`,
+      query: (gameId) => `/${gameId}/messages`,
     }),
     solveAd: builder.mutation<SolveAdResponse, SolveAdPayload>({
       query: ({gameId, adId}) => ({
-        url: `/game/${gameId}/solve/${adId}`,
+        url: `/${gameId}/solve/${adId}`,
         method: "POST",
       }),
     }),
     fetchShopItems: builder.query<FetchShopItemsResponse, string>({
-      query: (gameId) => `/game/${gameId}/shop`,
+      query: (gameId) => `/${gameId}/shop`,
     }),
     purchaseItem: builder.mutation<PurchaseItemResponse, PurchaseItemPayload>({
       query: ({gameId, itemId}) => ({
-        url: `/game/${gameId}/shop/buy/${itemId}`,
+        url: `/${gameId}/shop/buy/${itemId}`,
         method: "POST",
       }),
     }),
