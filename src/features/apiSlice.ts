@@ -38,16 +38,17 @@ interface SolveAdResponse {
 interface ShopItem {
   id: string;
   name: string;
-  price: number;
+  cost: number;
 }
 
-interface FetchShopItemsResponse {
-  items: ShopItem[];
-}
+type FetchShopItemsResponse = ShopItem[];
 
 interface PurchaseItemResponse {
-  success: boolean;
-  message: string;
+  shoppingSuccess: string;
+  gold: number;
+  lives: number;
+  level: number;
+  turn: number;
 }
 
 interface PurchaseItemPayload {

@@ -5,7 +5,9 @@ import {RootState} from "../app/store";
 import Ad from "../components/ad/Ad";
 import ModalComponent from "../components/sharedComponents/Modal/Modal";
 import Button from "../components/sharedComponents/button/Button";
-import {updateStats} from "../features/gameSlice";
+import {updateStats, resetGame} from "../features/gameSlice";
+import {ApplicationRoutes} from "../utils/constants";
+import {useNavigate} from "react-router-dom";
 
 interface AdData {
   adId: string;
@@ -22,6 +24,7 @@ const AdList: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isMissionSuccess, setMissionSuccess] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlePlay = async (adId: string) => {
     if (!gameId) {
@@ -49,11 +52,20 @@ const AdList: React.FC = () => {
     }
   };
 
+  const handleGameQuit = () => {
+    dispatch(resetGame());
+    navigate(ApplicationRoutes.HOME);
+  };
+
   if (isLoading) return <p>Loading ads...</p>;
   if (error) return <p>Error loading ads.</p>;
 
   return (
     <div>
+      <div className="buttonsContainer">
+        <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Shop" />
+        <Button onClick={handleGameQuit} title="Quit" />
+      </div>
       <ModalComponent isOpen={isModalOpen}>
         {isMissionSuccess ? (
           <>

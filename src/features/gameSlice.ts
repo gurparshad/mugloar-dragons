@@ -17,9 +17,9 @@ interface SetGamePayload {
 }
 
 interface UpdateStatsPayload {
-  score: number;
+  score?: number;
   gold: number;
-  lives: number;
+  lives?: number;
   level?: number;
 }
 
@@ -52,20 +52,23 @@ const gameSlice = createSlice({
       localStorage.setItem("gameState", JSON.stringify(state));
     },
     updateStats(state, action: PayloadAction<UpdateStatsPayload>) {
-      state.score = action.payload.score;
       state.gold = action.payload.gold;
-      state.lives = action.payload.lives;
-      if (action.payload.level) {
-        state.level = action.payload.level;
-      }
+      state.score = action.payload.score ?? state.score;
+      state.lives = action.payload.lives ?? state.lives;
+      state.level = action.payload.level ?? state.level;
       localStorage.setItem("gameState", JSON.stringify(state));
     },
-    increaseLevel(state) {
-      state.level += 1;
+    resetGame(state) {
+      state.gameId = null;
+      state.score = 0;
+      state.gold = 0;
+      state.lives = 3;
+      state.level = 0;
+      localStorage.removeItem("gameState");
     },
   },
 });
 
-export const {setGame, updateStats, increaseLevel} = gameSlice.actions;
+export const {setGame, updateStats, resetGame} = gameSlice.actions;
 
 export default gameSlice.reducer;

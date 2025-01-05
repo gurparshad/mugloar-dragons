@@ -6,7 +6,7 @@ import styles from "./ad.module.css";
 import ModalComponent from "../sharedComponents/Modal/Modal";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
-import {AppRoutes} from "../../utils/constants";
+import {ApplicationRoutes} from "../../utils/constants";
 
 interface AdProps {
   message: string;
@@ -52,7 +52,7 @@ const Ad: React.FC<AdProps> = ({message, reward, expiresIn, probability, handleP
               <h3>
                 You are at level {game.level} which is not sufficient for this task of level {levelCode}. Please Upgrade
               </h3>
-              <Button onClick={() => navigate(AppRoutes.SHOP)} title="Upgrade" />
+              <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
             </>
           ) : (
             <>
