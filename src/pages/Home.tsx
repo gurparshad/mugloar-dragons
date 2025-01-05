@@ -3,6 +3,7 @@ import Button from "../components/sharedComponents/button/Button";
 import {useStartGameMutation} from "../features/apiSlice";
 import {useDispatch} from "react-redux";
 import {setGame} from "../features/gameSlice";
+import {AppRoutes} from "../utils/constants";
 
 const Home = () => {
   const [startGame] = useStartGameMutation();
@@ -19,10 +20,10 @@ const Home = () => {
           score: 0,
           gold: 0,
           lives: 3,
-          level: 1,
+          level: 0,
         })
       );
-      navigate("/ads");
+      navigate(AppRoutes.ADS);
     } catch (err) {
       console.error("Failed to start game:", err);
     }

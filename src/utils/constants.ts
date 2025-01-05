@@ -10,3 +10,9 @@ export const Levels = [
   {probability: "Rather detrimental", value: 8},
   {probability: "Suicide mission", value: 9},
 ];
+
+export const AppRoutes = {
+  HOME: "/",
+  SHOP: "/shop",
+  ADS: "/ads",
+};

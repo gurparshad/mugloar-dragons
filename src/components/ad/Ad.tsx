@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getGameLevelCode} from "../../utils/helpers";
 import Button from "../sharedComponents/button/Button";
@@ -6,6 +6,7 @@ import styles from "./ad.module.css";
 import ModalComponent from "../sharedComponents/Modal/Modal";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
+import {AppRoutes} from "../../utils/constants";
 
 interface AdProps {
   message: string;
@@ -43,6 +44,23 @@ const Ad: React.FC<AdProps> = ({message, reward, expiresIn, probability, handleP
       <h2>Difficulty: {probability}</h2>
       <h2>ExpiresIn: {expiresIn}</h2>
       <Button onClick={() => handleAdClick(probability)} title="Play now" />
+      <ModalComponent isOpen={isModalOpen}>
+        <div>
+          <Button onClick={() => setModalOpen(false)} title="Close" />
+          {levelCode > game.level ? (
+            <>
+              <h3>
+                You are at level {game.level} which is not sufficient for this task of level {levelCode}. Please Upgrade
+              </h3>
+              <Button onClick={() => navigate(AppRoutes.SHOP)} title="Upgrade" />
+            </>
+          ) : (
+            <>
+              <Button onClick={handleClickPlay} title="Play Now" />
+            </>
+          )}
+        </div>
+      </ModalComponent>
     </div>
   );
 };

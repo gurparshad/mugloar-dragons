@@ -1,36 +1,19 @@
-import React, {useState} from "react";
+import React from "react";
 import Modal from "react-modal";
-import Button from "../button/Button";
-import styles from "./ModalComponent.module.css"; // import the module.css file
+import styles from "./modal.module.css";
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
-const ModalComponent: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface ModalComponentProps {
+  children: React.ReactNode;
+  isOpen: boolean;
+}
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
+const ModalComponent: React.FC<ModalComponentProps> = ({isOpen, children}) => {
   return (
     <div>
-      <Button title="Open Modal" onClick={openModal} />
-
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-        contentLabel="My Modal"
-        className={styles.modalContent}
-        overlayClassName={styles.modalOverlay}
-        closeTimeoutMS={300}
-      >
-        <h2>Modal Title</h2>
-        <p>This is a sample modal content</p>
-        <Button title="Close" onClick={closeModal} />
+      <Modal isOpen={isOpen} className={styles.modalContent} overlayClassName={styles.modalOverlay}>
+        {children}
       </Modal>
     </div>
   );

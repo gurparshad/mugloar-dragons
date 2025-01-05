@@ -28,6 +28,11 @@ interface SolveAdPayload {
 interface SolveAdResponse {
   success: boolean;
   message: string;
+  gold: number;
+  highScore: number;
+  lives: number;
+  score: number;
+  turn: number;
 }
 
 interface ShopItem {
