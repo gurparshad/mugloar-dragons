@@ -33,23 +33,30 @@ const Ad: React.FC<AdProps> = ({message, reward, expiresIn, probability, handleP
     handlePlay();
   };
 
+  // @ts-ignore
+  const isLevelSufficient = game.level >= getGameLevelCode(probability);
+
   return (
-    <div
-      className={styles.ad}
-      // @ts-ignore
-      style={{background: game.level < getGameLevelCode(probability) ? "darkred" : "forestgreen"}}
-    >
-      <h2>{message}</h2>
-      <h2>Reward: {reward}</h2>
-      <h2>Difficulty: {probability}</h2>
-      <h2>ExpiresIn: {expiresIn}</h2>
-      <Button onClick={() => handleAdClick(probability)} title="Play now" />
+    <div className={`${styles.ad} ${isLevelSufficient ? styles.adSuccess : styles.adFailure}`}>
+      <h3 className={styles.adMessage}>{message}</h3>
+      <div className={styles.adDetails}>
+        <p>
+          🎁 Reward: <span>{reward}</span>
+        </p>
+        <p>
+          🗓️ Expires In: <span>{expiresIn} Turns</span>
+        </p>
+        <p>
+          🎲 Probability: <span>{probability}</span>
+        </p>
+      </div>
+      <Button onClick={() => handleAdClick(probability)} title="Play Now" />
       <ModalComponent isOpen={isModalOpen}>
-        <div>
+        <div className={styles.modalContent}>
           <Button onClick={() => setModalOpen(false)} title="Close" />
           {levelCode > game.level ? (
             <>
-              <h3>
+              <h3 className={styles.modalMessage}>
                 You are at level {game.level} which is not sufficient for this task of level {levelCode}. Please Upgrade
               </h3>
               <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />

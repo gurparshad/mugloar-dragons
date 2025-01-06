@@ -7,3 +7,15 @@ export const getGameLevelCode = (probability: string) => {
     }
   }
 };
+
+const isBase64 = (str: string) => {
+  try {
+    return btoa(atob(str)) === str;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const decodeBase64 = (str: string) => {
+  return isBase64(str) ? atob(str) : str;
+};

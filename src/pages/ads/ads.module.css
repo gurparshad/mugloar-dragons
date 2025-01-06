@@ -1,0 +1,85 @@
+.adsList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 16px; 
+  padding: 20px;
+  list-style: none;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .adsList {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+@media (max-width: 768px) {
+  .adsList {
+    grid-template-columns: repeat(1, 1fr); 
+  }
+}
+
+@media (max-width: 480px) {
+  .adsList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.sortContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sortKey {
+  display: flex;
+  flex-direction: column;
+}
+
+.sortKey label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.sortKey select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.sortToggle {
+  display: flex;
+  align-items: center;
+}
+
+.sortToggle button {
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s ease-in-out;
+}
+
+.sortToggle button:hover {
+  background: #e0e0e0;
+}
+
+.sortToggle .arrowIcon {
+  font-size: 1.2rem;
+  display: inline-block;
+  color: #007bff;
+}
+
+.sortToggle button:active .arrowIcon {
+  transform: scale(1.1);
+}

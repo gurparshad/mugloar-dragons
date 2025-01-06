@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Routes} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Ads from "../pages/Ads";
+import Ads from "../pages/ads/Ads";
 import Shop from "../pages/Shop";
 import PrivateRoute from "./PrivateRoute";
 
