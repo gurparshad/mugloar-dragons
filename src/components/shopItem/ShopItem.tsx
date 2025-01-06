@@ -15,20 +15,32 @@ interface ShopItemProps {
 const ShopItem: React.FC<ShopItemProps> = ({name, cost, handleClick}) => {
   const {gold} = useSelector((state: RootState) => state.game);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
   const handleShopItemBuy = () => {
     handleClick();
     setModalOpen(false);
   };
 
+  const isAffordable = gold >= cost;
+
   return (
-    <div className={styles.shopItem}>
-      <h2>{name}</h2>
-      <h3>Gold: {cost}</h3>
-      <Button onClick={() => setModalOpen(true)} title="Buy" disabled={gold < cost} />
+    <div className={`${styles.shopItem} ${isAffordable ? styles.affordable : styles.unaffordable}`}>
+      <div className={styles.itemContent}>
+        <h2 className={styles.itemName}>{name}</h2>
+        <h3 className={styles.itemCost}>Cost: {cost} Gold</h3>
+      </div>
+      <Button onClick={() => setModalOpen(true)} title="Buy" disabled={!isAffordable} className={styles.buyButton} />
       <ModalComponent isOpen={isModalOpen}>
-        <h4>It cost {cost} gold are you sure you want to but it.</h4>
-        <Button onClick={handleShopItemBuy} title="Buy now" />
-        <Button onClick={() => setModalOpen(false)} title="Cancel" />
+        <div className={styles.modalContent}>
+          <h4 className={styles.modalMessage}>Confirm Purchase</h4>
+          <p>
+            This item costs <span>{cost} gold</span>. Are you sure you want to buy it?
+          </p>
+          <div className={styles.modalActions}>
+            <Button onClick={handleShopItemBuy} title="Buy Now" />
+            <Button onClick={() => setModalOpen(false)} title="Cancel" />
+          </div>
+        </div>
       </ModalComponent>
     </div>
   );

@@ -1,11 +1,3 @@
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
-  margin: 0 auto;
-}
-
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
@@ -14,6 +6,52 @@
   right: 0;
   bottom: 0;
   display: flex;
+  justify-content: center; 
+  align-items: center; 
+  animation: fadeIn 0.3s ease;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid rgb(156, 224, 224);
+  width: 300px;
+  height: 300px;
+  animation: zoomIn 0.5s ease forwards;
+  display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1001;
+  opacity: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  margin-top: calc(50vh - 150px);
+  margin-left: calc(50vw - 150px);
+}
+
+
+.modal-overlay.closing .modalContent {
+  transform: scale(0);
+  opacity: 0;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1); 
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

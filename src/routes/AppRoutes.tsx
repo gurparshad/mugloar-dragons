@@ -1,9 +1,9 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
+import Home from "../pages/home/Home";
 import Ads from "../pages/ads/Ads";
-import Shop from "../pages/Shop";
+import Shop from "../pages/shop/Shop";
 import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes: React.FC = () => {

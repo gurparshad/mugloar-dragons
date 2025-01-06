@@ -121,7 +121,6 @@ const Ads: React.FC = () => {
       <div>
         <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Shop" />
         <Button onClick={handleGameQuit} title="Quit" />
-        <Button onClick={() => refetch()} title="Reload" />
       </div>
       <ModalComponent isOpen={isModalOpen}>
         {isMissionSuccess ? (

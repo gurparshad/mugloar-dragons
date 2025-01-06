@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import {useFetchShopItemsQuery, usePurchaseItemMutation} from "../features/apiSlice";
+import {useFetchShopItemsQuery, usePurchaseItemMutation} from "../../features/apiSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../app/store";
-import ShopItem from "../components/shopItem/ShopItem";
-import {updateStats} from "../features/gameSlice";
-import ModalComponent from "../components/sharedComponents/Modal/Modal";
-import Button from "../components/sharedComponents/button/Button";
+import {RootState} from "../../app/store";
+import ShopItem from "../../components/shopItem/ShopItem";
+import {updateStats} from "../../features/gameSlice";
+import ModalComponent from "../../components/sharedComponents/Modal/Modal";
+import Button from "../../components/sharedComponents/button/Button";
+import styles from "./shop.module.css";
 
 const Shop = () => {
   const {gameId, gold, level} = useSelector((state: RootState) => state.game);
@@ -48,7 +49,7 @@ const Shop = () => {
     <div>
       <h2>Shop</h2>
       {data?.length ? (
-        <ul>
+        <ul className={styles.shopItemList}>
           {data?.map((item) => (
             <ShopItem id={item.id} name={item.name} cost={item.cost} handleClick={() => handleItemPurchase(item.id)} />
           ))}

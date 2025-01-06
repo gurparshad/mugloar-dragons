@@ -1,15 +1,85 @@
+/* Card Design */
 .shopItem {
-  border: 1px solid aliceblue;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: left;
-  gap: 20px;
-  margin: 10px;
-  padding: 10px;
-  background: rgb(68, 111, 146);
-  min-width: 300px;
-  align-items: baseline;
-  align-items: baseline;
+  gap: 10px;
+  padding: 15px;
+  max-width: 260px;
+  background: #f0f8ff; /* Bluish background */
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.shopItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.affordable {
+  border: 2px solid #0073ce;
+  background: #eaf6fd;
+}
+
+.unaffordable {
+  border: 2px solid #ead2ca;
+  background: #f3eeee;
+}
+
+.itemContent {
+  text-align: center;
+}
+
+.itemName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #002f56;
+}
+
+.itemCost {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Buy Button */
+.buyButton {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: #0073ce;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease, transform 0.2s ease;
+}
+
+.buyButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.buyButton:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+
+.modalContent {
+  text-align: center;
+  padding: 20px;
+}
+
+.modalMessage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #002f56;
+  margin-bottom: 15px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

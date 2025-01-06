@@ -1,0 +1,54 @@
+import {useNavigate} from "react-router-dom";
+import Button from "../../components/sharedComponents/button/Button";
+import {useStartGameMutation} from "../../features/apiSlice";
+import {useDispatch} from "react-redux";
+import {setGame} from "../../features/gameSlice";
+import {ApplicationRoutes} from "../../utils/constants";
+import styles from "./home.module.css";
+
+const Home = () => {
+  const [startGame] = useStartGameMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleGameStart = async () => {
+    try {
+      const result = await startGame().unwrap();
+      console.log("Game started:", result);
+      dispatch(
+        setGame({
+          gameId: result.gameId,
+          score: 0,
+          gold: 0,
+          lives: 3,
+          level: 0,
+        })
+      );
+      navigate(ApplicationRoutes.ADS);
+    } catch (err) {
+      console.error("Failed to start game:", err);
+    }
+  };
+
+  return (
+    <div className={styles.homeContainer}>
+      <h1 className={styles.heading}>Are you ready to play?</h1>
+      <p className={styles.subheading}>Click the button below to start the game and embark on your journey!</p>
+      <div className={styles.rulesContainer}>
+        <h3 className={styles.rulesHeading}>Rules</h3>
+        <ul className={styles.rulesList}>
+          <li>The tasks have different difficulty levels.</li>
+          <li>As you complete tasks, you will earn gold.</li>
+          <li>You can use the gold to purchase items from the shop to help you level up.</li>
+          <li>Some tasks are green (easier), while others are red (more difficult).</li>
+          <li>You might fail to complete the red tasks as they are much harder than green ones.</li>
+          <li>Earn gold and level up! At certain levels, red cards will automatically turn green.</li>
+        </ul>
+      </div>
+      <Button onClick={handleGameStart} title="Start Game" className={styles.startGameButton} />
+      <div className={styles.flame} />
+    </div>
+  );
+};
+
+export default Home;
