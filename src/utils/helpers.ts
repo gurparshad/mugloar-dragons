@@ -6,7 +6,7 @@ export const getGameLevelCode = (probability: string) => {
       return level.value;
     }
   }
-  return undefined;
+  return null;
 };
 
 const isBase64 = (str: string) => {

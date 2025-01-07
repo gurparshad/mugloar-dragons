@@ -21,11 +21,10 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
   const game = useSelector((state: RootState) => state.game);
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [levelCode, setLevelCode] = useState<number>(0);
+  const [levelCode, setLevelCode] = useState<number | null>(0);
 
   const handleAdClick = (adProbability: string) => {
     setModalOpen(true);
-    // @ts-ignore
     setLevelCode(getGameLevelCode(adProbability));
   };
 
@@ -55,6 +54,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
       <ModalComponent isOpen={isModalOpen}>
         <div className={styles.modalContent}>
           <Button onClick={() => setModalOpen(false)} title="Close" />
+          {/* @ts-ignore */}
           {levelCode > game.level ? (
             <>
               <h3 className={styles.modalMessage}>

@@ -155,6 +155,7 @@ const Ads: React.FC = () => {
       <ul className={styles.adsList}>
         {sortedAds?.map((ad: AdData) => (
           <Ad
+            key={ad.adId}
             message={ad.message}
             reward={ad.reward}
             expiresIn={ad.expiresIn}
