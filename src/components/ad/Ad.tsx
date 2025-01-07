@@ -1,31 +1,32 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {getGameLevelCode} from "../../utils/helpers";
-import Button from "../sharedComponents/button/Button";
-import styles from "./ad.module.scss";
-import ModalComponent from "../sharedComponents/Modal/Modal";
-import {useSelector} from "react-redux";
-import {RootState} from "../../app/store";
-import {ApplicationRoutes} from "../../utils/constants";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './ad.module.scss';
+import { RootState } from '../../app/store';
+import { ApplicationRoutes } from '../../utils/constants';
+import { getGameLevelCode } from '../../utils/helpers';
+import Button from '../sharedComponents/button/Button';
+import ModalComponent from '../sharedComponents/Modal/Modal';
 
 interface AdProps {
   message: string;
   reward: number;
   expiresIn: number;
   probability: string;
-  handlePlay: () => {};
+  handlePlay: () => void;
 }
 
-const Ad: React.FC<AdProps> = ({message, reward, expiresIn, probability, handlePlay}) => {
+const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handlePlay }) => {
   const game = useSelector((state: RootState) => state.game);
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [levelCode, setLevelCode] = useState<number>(0);
 
-  const handleAdClick = (probability: string) => {
+  const handleAdClick = (adProbability: string) => {
     setModalOpen(true);
-    //@ts-ignore
-    setLevelCode(getGameLevelCode(probability));
+    // @ts-ignore
+    setLevelCode(getGameLevelCode(adProbability));
   };
 
   const handleClickPlay = () => {
@@ -57,14 +58,13 @@ const Ad: React.FC<AdProps> = ({message, reward, expiresIn, probability, handleP
           {levelCode > game.level ? (
             <>
               <h3 className={styles.modalMessage}>
-                You are at level {game.level} which is not sufficient for this task of level {levelCode}. Please Upgrade
+                You are at level {game.level} which is not sufficient for this task of level{' '}
+                {levelCode}. Please Upgrade
               </h3>
               <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
             </>
           ) : (
-            <>
-              <Button onClick={handleClickPlay} title="Play Now" />
-            </>
+            <Button onClick={handleClickPlay} title="Play Now" />
           )}
         </div>
       </ModalComponent>

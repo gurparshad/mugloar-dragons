@@ -1,17 +1,18 @@
-import React, {useState} from "react";
-import {useFetchShopItemsQuery, usePurchaseItemMutation} from "../../features/apiSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../app/store";
-import ShopItem from "../../components/shopItem/ShopItem";
-import {updateStats} from "../../features/gameSlice";
-import ModalComponent from "../../components/sharedComponents/Modal/Modal";
-import Button from "../../components/sharedComponents/button/Button";
-import styles from "./shop.module.scss";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './shop.module.scss';
+import { RootState } from '../../app/store';
+import Button from '../../components/sharedComponents/button/Button';
+import ModalComponent from '../../components/sharedComponents/Modal/Modal';
+import ShopItem from '../../components/shopItem/ShopItem';
+import { useFetchShopItemsQuery, usePurchaseItemMutation } from '../../features/apiSlice';
+import { updateStats } from '../../features/gameSlice';
 
 const Shop = () => {
-  const {gameId, gold, level} = useSelector((state: RootState) => state.game);
+  const { gameId, gold, level } = useSelector((state: RootState) => state.game);
   const [purchaseItem] = usePurchaseItemMutation();
-  const {data, isLoading, isError} = useFetchShopItemsQuery(gameId || "");
+  const { data, isLoading, isError } = useFetchShopItemsQuery(gameId || '');
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isPurchaseSuccess, setPurchaseSuccess] = useState<boolean>(false);
@@ -21,11 +22,11 @@ const Shop = () => {
 
   const handleItemPurchase = async (itemId: string) => {
     if (!gameId) {
-      alert("Game ID is missing.");
+      alert('Game ID is missing.');
       return;
     }
     try {
-      const response = await purchaseItem({gameId, itemId}).unwrap();
+      const response = await purchaseItem({ gameId, itemId }).unwrap();
       if (response.shoppingSuccess) {
         dispatch(
           updateStats({
@@ -40,8 +41,8 @@ const Shop = () => {
         setPurchaseSuccess(false);
       }
     } catch (error) {
-      console.error("Error purchasing item:", error);
-      alert("An error occurred during the purchase. Please try again.");
+      console.error('Error purchasing item:', error);
+      alert('An error occurred during the purchase. Please try again.');
     }
   };
 
@@ -51,7 +52,13 @@ const Shop = () => {
       {data?.length ? (
         <ul className={styles.shopItemList}>
           {data?.map((item) => (
-            <ShopItem id={item.id} name={item.name} cost={item.cost} handleClick={() => handleItemPurchase(item.id)} />
+            <ShopItem
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              cost={item.cost}
+              handleClick={() => handleItemPurchase(item.id)}
+            />
           ))}
         </ul>
       ) : (

@@ -53,7 +53,7 @@
 }
 
 .rulesList li::before {
-  content: "•";
+  content: '•';
   color: #00a99d;
   position: absolute;
   left: 0;
@@ -71,7 +71,9 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .startGameButton:hover {

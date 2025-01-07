@@ -1,8 +1,9 @@
-import React from "react";
-import styles from "./button.module.scss";
-import classNames from "classnames";
+import classNames from 'classnames';
+import React from 'react';
 
-type ButtonType = "button" | "submit" | "reset";
+import styles from './button.module.scss';
+
+type ButtonType = 'button' | 'submit' | 'reset';
 
 interface ButtonProps {
   title: string;
@@ -12,10 +13,16 @@ interface ButtonProps {
   buttonType?: ButtonType;
 }
 
-const Button: React.FC<ButtonProps> = ({title, onClick, className, disabled, buttonType}) => {
+const Button: React.FC<ButtonProps> = ({
+  title,
+  onClick,
+  className = '',
+  disabled = false,
+  buttonType = 'button',
+}) => {
   return (
     <button
-      type={buttonType || "button"}
+      type={buttonType}
       className={classNames(className, styles.button)}
       onClick={onClick}
       disabled={disabled}

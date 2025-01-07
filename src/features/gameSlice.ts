@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface GameState {
   gameId: string | null;
@@ -24,7 +24,7 @@ interface UpdateStatsPayload {
 }
 
 const loadGameState = (): GameState => {
-  const savedState = localStorage.getItem("gameState");
+  const savedState = localStorage.getItem('gameState');
   if (savedState) {
     return JSON.parse(savedState);
   }
@@ -40,7 +40,7 @@ const loadGameState = (): GameState => {
 const initialState: GameState = loadGameState();
 
 const gameSlice = createSlice({
-  name: "game",
+  name: 'game',
   initialState,
   reducers: {
     setGame(state, action: PayloadAction<SetGamePayload>) {
@@ -49,14 +49,14 @@ const gameSlice = createSlice({
       state.gold = action.payload.gold;
       state.lives = action.payload.lives;
       state.level = action.payload.level;
-      localStorage.setItem("gameState", JSON.stringify(state));
+      localStorage.setItem('gameState', JSON.stringify(state));
     },
     updateStats(state, action: PayloadAction<UpdateStatsPayload>) {
       state.gold = action.payload.gold;
       state.score = action.payload.score ?? state.score;
       state.lives = action.payload.lives ?? state.lives;
       state.level = action.payload.level ?? state.level;
-      localStorage.setItem("gameState", JSON.stringify(state));
+      localStorage.setItem('gameState', JSON.stringify(state));
     },
     resetGame(state) {
       state.gameId = null;
@@ -64,11 +64,11 @@ const gameSlice = createSlice({
       state.gold = 0;
       state.lives = 3;
       state.level = 0;
-      localStorage.removeItem("gameState");
+      localStorage.removeItem('gameState');
     },
   },
 });
 
-export const {setGame, updateStats, resetGame} = gameSlice.actions;
+export const { setGame, updateStats, resetGame } = gameSlice.actions;
 
 export default gameSlice.reducer;

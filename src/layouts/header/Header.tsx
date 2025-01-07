@@ -1,10 +1,11 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {RootState} from "../../app/store";
-import styles from "./header.module.css";
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import styles from './header.module.css';
+import { RootState } from '../../app/store';
 
 const Header = () => {
-  const {score, gold, lives, level} = useSelector((state: RootState) => state.game);
+  const { score, gold, lives, level } = useSelector((state: RootState) => state.game);
 
   return (
     <div className={styles.header}>

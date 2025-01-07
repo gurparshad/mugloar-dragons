@@ -8,7 +8,9 @@
   padding: 15px;
   max-width: 260px;
   background: #f0f8ff; /* Bluish background */
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   overflow: hidden;
 }
 
@@ -53,7 +55,9 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s ease, transform 0.2s ease;
+  transition:
+    0.2s ease,
+    transform 0.2s ease;
 }
 
 .buyButton:disabled {
@@ -64,7 +68,6 @@
 .buyButton:hover:not(:disabled) {
   background: #0056b3;
 }
-
 
 .modalContent {
   text-align: center;

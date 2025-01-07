@@ -7,7 +7,9 @@
   padding: 15px;
   max-width: 260px;
   background: white;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   overflow: hidden;
 }
 
@@ -22,7 +24,7 @@
 }
 
 .adFailure {
-  border: 2px solid #ce3700; 
+  border: 2px solid #ce3700;
   background: #fbe8e7;
 }
 

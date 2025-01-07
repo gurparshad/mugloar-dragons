@@ -1,4 +1,4 @@
-import {Levels} from "./constants";
+import { Levels } from './constants';
 
 export const getGameLevelCode = (probability: string) => {
   for (const level of Levels) {
@@ -6,12 +6,13 @@ export const getGameLevelCode = (probability: string) => {
       return level.value;
     }
   }
+  return undefined;
 };
 
 const isBase64 = (str: string) => {
   try {
     return btoa(atob(str)) === str;
-  } catch (err) {
+  } catch {
     return false;
   }
 };

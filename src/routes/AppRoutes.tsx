@@ -1,10 +1,11 @@
-import React from "react";
-import {Route, Routes} from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/home/Home";
-import Ads from "../pages/ads/Ads";
-import Shop from "../pages/shop/Shop";
-import PrivateRoute from "./PrivateRoute";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import PrivateRoute from './PrivateRoute';
+import MainLayout from '../layouts/MainLayout';
+import Ads from '../pages/ads/Ads';
+import Home from '../pages/home/Home';
+import Shop from '../pages/shop/Shop';
 
 const AppRoutes: React.FC = () => {
   return (

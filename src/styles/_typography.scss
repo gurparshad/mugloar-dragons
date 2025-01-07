@@ -3,26 +3,31 @@ $font-family-secondary: 'Georgia', serif;
 
 /* Base Font Sizes */
 $font-size-base: 16px;
-$font-size-lg: 1.25rem;   // 20px
-$font-size-sm: 0.875rem;   // 14px
+$font-size-lg: 1.25rem; // 20px
+$font-size-sm: 0.875rem; // 14px
 
 /* Line Heights */
 $line-height-base: 1.5;
 $line-height-heading: 1.2;
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-secondary;
   font-weight: bold;
   margin-bottom: 0.5em;
 }
 
 h1 {
-  font-size: 2.5rem;  /* 40px */
+  font-size: 2.5rem; /* 40px */
 }
 
 h2 {
-  font-size: 2rem;    /* 32px */
+  font-size: 2rem; /* 32px */
 }
 
 h3 {
@@ -30,7 +35,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.5rem;  /* 24px */
+  font-size: 1.5rem; /* 24px */
 }
 
 h5 {
@@ -38,7 +43,7 @@ h5 {
 }
 
 h6 {
-  font-size: 1rem;    /* 16px */
+  font-size: 1rem; /* 16px */
 }
 
 /* Paragraph */

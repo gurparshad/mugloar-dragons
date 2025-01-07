@@ -1,0 +1,12 @@
+# dependencies
+/node_modules/
+
+# production
+build/
+
+# public
+public/
+
+# package-lock.json
+/package-lock.json
+

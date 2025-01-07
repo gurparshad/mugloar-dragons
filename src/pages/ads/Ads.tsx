@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {useFetchAdsQuery, useSolveAdMutation} from "../../features/apiSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../app/store";
-import Ad from "../../components/ad/Ad";
-import ModalComponent from "../../components/sharedComponents/Modal/Modal";
-import Button from "../../components/sharedComponents/button/Button";
-import {updateStats, resetGame} from "../../features/gameSlice";
-import {ApplicationRoutes, Levels} from "../../utils/constants";
-import {useNavigate} from "react-router-dom";
-import styles from "./ads.module.scss";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './ads.module.scss';
+import { RootState } from '../../app/store';
+import Ad from '../../components/ad/Ad';
+import Button from '../../components/sharedComponents/button/Button';
+import ModalComponent from '../../components/sharedComponents/Modal/Modal';
+import { useFetchAdsQuery, useSolveAdMutation } from '../../features/apiSlice';
+import { updateStats, resetGame } from '../../features/gameSlice';
+import { ApplicationRoutes, Levels } from '../../utils/constants';
 
 interface AdData {
   adId: string;
@@ -20,25 +21,25 @@ interface AdData {
 
 const Ads: React.FC = () => {
   const gameId = useSelector((state: RootState) => state.game.gameId);
-  const {data, isLoading, error, refetch} = useFetchAdsQuery(gameId || "");
+  const { data, isLoading, error, refetch } = useFetchAdsQuery(gameId || '');
   const [solveAd] = useSolveAdMutation();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isMissionSuccess, setMissionSuccess] = useState<boolean>(false);
   const [sortedAds, setSortedAds] = useState<AdData[] | null>(null);
-  const [sortConfig, setSortConfig] = useState<{key: string; order: string}>({
-    key: "reward",
-    order: "ascending",
+  const [sortConfig, setSortConfig] = useState<{ key: string; order: string }>({
+    key: 'reward',
+    order: 'ascending',
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handlePlay = async (adId: string) => {
     if (!gameId) {
-      console.error("Game ID is required to solve an ad.");
+      console.error('Game ID is required to solve an ad.');
       return;
     }
     try {
-      const response = await solveAd({gameId, adId}).unwrap();
+      const response = await solveAd({ gameId, adId }).unwrap();
       if (response.success) {
         dispatch(
           updateStats({
@@ -55,7 +56,7 @@ const Ads: React.FC = () => {
       }
       refetch();
     } catch (err) {
-      console.error("Failed to solve the ad:", err);
+      console.error('Failed to solve the ad:', err);
     }
   };
 
@@ -64,28 +65,32 @@ const Ads: React.FC = () => {
     navigate(ApplicationRoutes.HOME);
   };
 
-  const applySorting = (ads: AdData[], config: {key: string; order: string}) => {
+  const applySorting = (ads: AdData[], config: { key: string; order: string }) => {
     const sorted = [...ads].sort((a, b) => {
       let valueA: number | string = a[config.key as keyof AdData];
       let valueB: number | string = b[config.key as keyof AdData];
 
-      if (config.key === "probability") {
+      if (config.key === 'probability') {
         valueA = Levels.find((level) => level.probability === valueA)?.value ?? 0;
         valueB = Levels.find((level) => level.probability === valueB)?.value ?? 0;
       }
 
-      if (config.order === "ascending") {
-        return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
-      } else {
-        return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+      if (config.order === 'ascending') {
+        if (valueA < valueB) return -1;
+        if (valueA > valueB) return 1;
+        return 0;
       }
+
+      if (valueA > valueB) return -1;
+      if (valueA < valueB) return 1;
+      return 0;
     });
 
     setSortedAds(sorted);
   };
 
   const handleSort = (key: string, order: string) => {
-    setSortConfig({key, order});
+    setSortConfig({ key, order });
   };
 
   useEffect(() => {
@@ -102,7 +107,11 @@ const Ads: React.FC = () => {
       <div className={styles.sortContainer}>
         <div className={styles.sortKey}>
           <label htmlFor="sortKey">Sort By:</label>
-          <select id="sortKey" value={sortConfig.key} onChange={(e) => handleSort(e.target.value, sortConfig.order)}>
+          <select
+            id="sortKey"
+            value={sortConfig.key}
+            onChange={(e) => handleSort(e.target.value, sortConfig.order)}
+          >
             <option value="reward">Reward</option>
             <option value="expiresIn">Expires In</option>
             <option value="probability">Probability</option>
@@ -111,9 +120,17 @@ const Ads: React.FC = () => {
 
         <div className={styles.sortToggle}>
           <button
-            onClick={() => handleSort(sortConfig.key, sortConfig.order === "ascending" ? "descending" : "ascending")}
+            type="button"
+            onClick={() =>
+              handleSort(
+                sortConfig.key,
+                sortConfig.order === 'ascending' ? 'descending' : 'ascending'
+              )
+            }
           >
-            <span className={styles.arrowIcon}>{sortConfig.order === "ascending" ? "⬆️⬇️" : "⬇️⬆️"}</span>
+            <span className={styles.arrowIcon}>
+              {sortConfig.order === 'ascending' ? '⬆️⬇️' : '⬇️⬆️'}
+            </span>
           </button>
         </div>
       </div>

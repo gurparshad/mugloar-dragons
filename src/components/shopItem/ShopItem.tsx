@@ -1,23 +1,24 @@
-import React, {useState} from "react";
-import styles from "./shopItem.module.scss";
-import Button from "../sharedComponents/button/Button";
-import ModalComponent from "../sharedComponents/Modal/Modal";
-import {useSelector} from "react-redux";
-import {RootState} from "../../app/store";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import styles from './shopItem.module.scss';
+import { RootState } from '../../app/store';
+import Button from '../sharedComponents/button/Button';
+import ModalComponent from '../sharedComponents/Modal/Modal';
 
 interface ShopItemProps {
   id: string;
   name: string;
   cost: number;
-  handleClick: () => void;
+  handleClick: (id: string) => void;
 }
 
-const ShopItem: React.FC<ShopItemProps> = ({name, cost, handleClick}) => {
-  const {gold} = useSelector((state: RootState) => state.game);
+const ShopItem: React.FC<ShopItemProps> = ({ id, name, cost, handleClick }) => {
+  const { gold } = useSelector((state: RootState) => state.game);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleShopItemBuy = () => {
-    handleClick();
+    handleClick(id);
     setModalOpen(false);
   };
 
@@ -29,7 +30,12 @@ const ShopItem: React.FC<ShopItemProps> = ({name, cost, handleClick}) => {
         <h2 className={styles.itemName}>{name}</h2>
         <h3 className={styles.itemCost}>Cost: {cost} Gold</h3>
       </div>
-      <Button onClick={() => setModalOpen(true)} title="Buy" disabled={!isAffordable} className={styles.buyButton} />
+      <Button
+        onClick={() => setModalOpen(true)}
+        title="Buy"
+        disabled={!isAffordable}
+        className={styles.buyButton}
+      />
       <ModalComponent isOpen={isModalOpen}>
         <div className={styles.modalContent}>
           <h4 className={styles.modalMessage}>Confirm Purchase</h4>
