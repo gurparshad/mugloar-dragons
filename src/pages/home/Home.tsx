@@ -4,7 +4,7 @@ import {useStartGameMutation} from "../../features/apiSlice";
 import {useDispatch} from "react-redux";
 import {setGame} from "../../features/gameSlice";
 import {ApplicationRoutes} from "../../utils/constants";
-import styles from "./home.module.css";
+import styles from "./home.module.scss";
 
 const Home = () => {
   const [startGame] = useStartGameMutation();

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "./shopItem.module.css";
+import styles from "./shopItem.module.scss";
 import Button from "../sharedComponents/button/Button";
 import ModalComponent from "../sharedComponents/Modal/Modal";
 import {useSelector} from "react-redux";

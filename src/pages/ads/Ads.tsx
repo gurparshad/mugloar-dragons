@@ -8,7 +8,7 @@ import Button from "../../components/sharedComponents/button/Button";
 import {updateStats, resetGame} from "../../features/gameSlice";
 import {ApplicationRoutes, Levels} from "../../utils/constants";
 import {useNavigate} from "react-router-dom";
-import styles from "./ads.module.css";
+import styles from "./ads.module.scss";
 
 interface AdData {
   adId: string;

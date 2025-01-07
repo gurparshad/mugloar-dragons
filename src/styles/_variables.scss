@@ -1,0 +1,27 @@
+/* Spacing */
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 40px;
+
+/* Breakpoints for responsive design */
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1440px;
+
+/* Font Sizes */
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 24px;
+
+/* Border Radius */
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+/* Z-Index Levels */
+$z-index-overlay: 1000;
+$z-index-dropdown: 900;
+$z-index-modal: 1100;

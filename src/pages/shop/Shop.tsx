@@ -6,7 +6,7 @@ import ShopItem from "../../components/shopItem/ShopItem";
 import {updateStats} from "../../features/gameSlice";
 import ModalComponent from "../../components/sharedComponents/Modal/Modal";
 import Button from "../../components/sharedComponents/button/Button";
-import styles from "./shop.module.css";
+import styles from "./shop.module.scss";
 
 const Shop = () => {
   const {gameId, gold, level} = useSelector((state: RootState) => state.game);

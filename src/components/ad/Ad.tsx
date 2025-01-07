@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getGameLevelCode} from "../../utils/helpers";
 import Button from "../sharedComponents/button/Button";
-import styles from "./ad.module.css";
+import styles from "./ad.module.scss";
 import ModalComponent from "../sharedComponents/Modal/Modal";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
