@@ -50,7 +50,11 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
           🎲 Probability: <span>{probability}</span>
         </p>
       </div>
-      <Button onClick={() => handleAdClick(probability)} title="Play Now" />
+      <Button
+        onClick={() => handleAdClick(probability)}
+        title="Play Now"
+        styleType={isLevelSufficient ? 'success' : 'failure'}
+      />
       <ModalComponent isOpen={isModalOpen}>
         <div className={styles.modalContent}>
           <Button onClick={() => setModalOpen(false)} title="Close" />
@@ -62,6 +66,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
                 {levelCode}. Please Upgrade
               </h3>
               <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
+              <Button onClick={handleClickPlay} title="Play Anyway" />
             </>
           ) : (
             <Button onClick={handleClickPlay} title="Play Now" />

@@ -7,10 +7,9 @@
   padding: 15px;
   max-width: 260px;
   background: white;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
+  height: 100%;
 }
 
 .ad:hover {
@@ -32,7 +31,16 @@
   color: #002f56;
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: auto;
+  /* Pushes other content down and keeps the message at the top */
+}
+
+.adDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+  /* Allows the details section to expand and push the button down */
 }
 
 .adDetails p {

@@ -25,61 +25,77 @@
   }
 }
 
+/* Container styling */
 .sortContainer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.sortKey {
-  display: flex;
-  flex-direction: column;
-}
-
-.sortKey label {
+.label {
   font-size: 0.9rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333333;
+  margin-right: 10px;
 }
 
-.sortKey select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
+.select {
+  padding: 8px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #333333;
+  background-color: white;
   outline: none;
+  transition: border 0.2s;
 }
 
+.select:focus {
+  border-color: #00a99d;
+}
+
+/* Sort toggle button styling */
 .sortToggle {
   display: flex;
   align-items: center;
 }
 
-.sortToggle button {
-  background: #f4f4f4;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+.toggleButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  transition: background 0.2s ease-in-out;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.sortToggle button:hover {
-  background: #e0e0e0;
+.toggleButton:hover {
+  background-color: #12ded1;
+  color: white;
+  border-color: #00a99d;
 }
 
-.sortToggle .arrowIcon {
+/* Icon styling */
+.arrowIcon {
+  display: flex;
+  gap: 5px;
+}
+
+.activeIcon {
+  color: black;
   font-size: 1.2rem;
-  display: inline-block;
-  color: #007bff;
 }
 
-.sortToggle button:active .arrowIcon {
-  transform: scale(1.1);
+.inactiveIcon {
+  color: #cccccc;
+  font-size: 1.2rem;
 }

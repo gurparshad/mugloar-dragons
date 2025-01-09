@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,6 +48,7 @@ const Ads: React.FC = () => {
     try {
       const response = await solveAd({ gameId, adId }).unwrap();
       if (response.success) {
+        console.log('response.lives-->>', response.lives);
         dispatch(
           updateStats({
             score: response.score,
@@ -57,6 +59,12 @@ const Ads: React.FC = () => {
         setMissionSuccess(true);
         setModalOpen(true);
       } else {
+        console.log('response.lives-->>', response.lives);
+        dispatch(
+          updateStats({
+            lives: response.lives,
+          })
+        );
         setMissionSuccess(false);
         setModalOpen(true);
       }
@@ -108,7 +116,7 @@ const Ads: React.FC = () => {
   }, [data, sortConfig]);
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <p>Error loading ads.</p>;
+  if (error) return <p>Error loading ads.Please try again later</p>;
 
   return (
     <div>
@@ -118,6 +126,7 @@ const Ads: React.FC = () => {
           <select
             id="sortKey"
             value={sortConfig.key}
+            className={styles.select}
             onChange={(e) => handleSort(e.target.value, sortConfig.order)}
           >
             <option value="reward">Reward</option>
@@ -128,6 +137,7 @@ const Ads: React.FC = () => {
 
         <div className={styles.sortToggle}>
           <button
+            className={styles.toggleButton}
             type="button"
             onClick={() =>
               handleSort(
@@ -137,7 +147,17 @@ const Ads: React.FC = () => {
             }
           >
             <span className={styles.arrowIcon}>
-              {sortConfig.order === 'ascending' ? '⬆️⬇️' : '⬇️⬆️'}
+              {sortConfig.order === 'ascending' ? (
+                <>
+                  <FaArrowUpLong color="black" />
+                  <FaArrowDownLong color="grey" />
+                </>
+              ) : (
+                <>
+                  <FaArrowUpLong color="grey" />
+                  <FaArrowDownLong color="black" />
+                </>
+              )}
             </span>
           </button>
         </div>

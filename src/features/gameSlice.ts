@@ -18,7 +18,7 @@ interface SetGamePayload {
 
 interface UpdateStatsPayload {
   score?: number;
-  gold: number;
+  gold?: number;
   lives?: number;
   level?: number;
 }
@@ -52,7 +52,7 @@ const gameSlice = createSlice({
       localStorage.setItem('gameState', JSON.stringify(state));
     },
     updateStats(state, action: PayloadAction<UpdateStatsPayload>) {
-      state.gold = action.payload.gold;
+      state.gold = action.payload.gold ?? state.gold;
       state.score = action.payload.score ?? state.score;
       state.lives = action.payload.lives ?? state.lives;
       state.level = action.payload.level ?? state.level;
