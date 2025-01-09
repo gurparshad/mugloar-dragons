@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './home.module.scss';
 import Button from '../../components/sharedComponents/button/Button';
 import { useStartGameMutation } from '../../features/apiSlice';
+import { setError } from '../../features/errorSlice';
 import { setGame } from '../../features/gameSlice';
 import { ApplicationRoutes } from '../../utils/constants';
+import { logError } from '../../utils/logger';
 
 const Home = () => {
   const [startGame] = useStartGameMutation();
@@ -15,7 +17,6 @@ const Home = () => {
   const handleGameStart = async () => {
     try {
       const result = await startGame().unwrap();
-      console.log('Game started:', result);
       dispatch(
         setGame({
           gameId: result.gameId,
@@ -27,7 +28,9 @@ const Home = () => {
       );
       navigate(ApplicationRoutes.ADS);
     } catch (err) {
-      console.error('Failed to start game:', err);
+      const errorMessage = 'Failed to start the game';
+      logError(errorMessage, err, 'Home - handleGameStart');
+      dispatch(setError('Failed to start the game. Please try again.'));
     }
   };
 

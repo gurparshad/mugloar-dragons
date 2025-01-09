@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './shop.module.scss';
 import { RootState } from '../../app/store';
 import Button from '../../components/sharedComponents/button/Button';
+import LoadingSpinner from '../../components/sharedComponents/loadingSpinner/LoadingSpinner';
 import ModalComponent from '../../components/sharedComponents/Modal/Modal';
 import ShopItem from '../../components/shopItem/ShopItem';
 import { useFetchShopItemsQuery, usePurchaseItemMutation } from '../../features/apiSlice';
+import { setError } from '../../features/errorSlice';
 import { updateStats } from '../../features/gameSlice';
+import { logError } from '../../utils/logger';
 
 const Shop = () => {
   const { gameId, gold, level } = useSelector((state: RootState) => state.game);
@@ -17,12 +20,15 @@ const Shop = () => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isPurchaseSuccess, setPurchaseSuccess] = useState<boolean>(false);
 
-  if (isLoading) return <div>Loading shop items...</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Failed to load shop items. Please try again later.</div>;
 
   const handleItemPurchase = async (itemId: string) => {
     if (!gameId) {
-      alert('Game ID is missing.');
+      const errorMessage = 'Game ID is required to purchase an item.';
+      const errorDetails = new Error(errorMessage);
+      logError(errorMessage, errorDetails, 'Shop - handleItemPurchase');
+      dispatch(setError('Game ID is required to purchase an item.'));
       return;
     }
     try {
@@ -41,8 +47,9 @@ const Shop = () => {
         setPurchaseSuccess(false);
       }
     } catch (error) {
-      console.error('Error purchasing item:', error);
-      alert('An error occurred during the purchase. Please try again.');
+      const errorMessage = 'Error purchasing item';
+      logError(errorMessage, error, 'Shop - handleItemPurchase, purchaseItem');
+      dispatch(setError('An error occurred during the purchase. Please try again.'));
     }
   };
 

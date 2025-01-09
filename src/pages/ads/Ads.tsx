@@ -6,10 +6,13 @@ import styles from './ads.module.scss';
 import { RootState } from '../../app/store';
 import Ad from '../../components/ad/Ad';
 import Button from '../../components/sharedComponents/button/Button';
+import LoadingSpinner from '../../components/sharedComponents/loadingSpinner/LoadingSpinner';
 import ModalComponent from '../../components/sharedComponents/Modal/Modal';
 import { useFetchAdsQuery, useSolveAdMutation } from '../../features/apiSlice';
+import { setError } from '../../features/errorSlice';
 import { updateStats, resetGame } from '../../features/gameSlice';
 import { ApplicationRoutes, Levels } from '../../utils/constants';
+import { logError } from '../../utils/logger';
 
 interface AdData {
   adId: string;
@@ -35,7 +38,10 @@ const Ads: React.FC = () => {
 
   const handlePlay = async (adId: string) => {
     if (!gameId) {
-      console.error('Game ID is required to solve an ad.');
+      const errorMessage = 'Game ID is required to solve an ad.';
+      const errorDetails = new Error(errorMessage);
+      logError(errorMessage, errorDetails, 'Ads - handlePlay');
+      dispatch(setError('Game ID is required to solve an ad.'));
       return;
     }
     try {
@@ -56,7 +62,9 @@ const Ads: React.FC = () => {
       }
       refetch();
     } catch (err) {
-      console.error('Failed to solve the ad:', err);
+      const errorMessage = 'Failed to solve the ad:';
+      logError(errorMessage, err, 'Ads - handlePlay, solveAd');
+      dispatch(setError('Failed to solve the ad.'));
     }
   };
 
@@ -99,7 +107,7 @@ const Ads: React.FC = () => {
     }
   }, [data, sortConfig]);
 
-  if (isLoading) return <p>Loading ads...</p>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <p>Error loading ads.</p>;
 
   return (
