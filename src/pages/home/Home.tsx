@@ -1,41 +1,12 @@
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
 import styles from './home.module.scss';
 import Button from '../../components/sharedComponents/button/Button';
-import { useStartGameMutation } from '../../features/apiSlice';
-import { setError } from '../../features/errorSlice';
-import { setGame } from '../../features/gameSlice';
-import { ApplicationRoutes } from '../../utils/constants';
-import { logError } from '../../utils/logger';
+import useStartGame from '../../hooks/useStartGame';
 
 const Home = () => {
-  const [startGame] = useStartGameMutation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleGameStart = async () => {
-    try {
-      const result = await startGame().unwrap();
-      dispatch(
-        setGame({
-          gameId: result.gameId,
-          score: 0,
-          gold: 0,
-          lives: 3,
-          level: 0,
-        })
-      );
-      navigate(ApplicationRoutes.ADS);
-    } catch (err) {
-      const errorMessage = 'Failed to start the game';
-      logError(errorMessage, err, 'Home - handleGameStart');
-      dispatch(setError('Failed to start the game. Please try again.'));
-    }
-  };
-
+  const startGameHandler = useStartGame();
   return (
     <div className={styles.homeContainer}>
+      <img src="/assets/images/dragonsOfMugloar.png" alt="dragons" className={styles.heroImage} />
       <h1 className={styles.heading}>Are you ready to play?</h1>
       <p className={styles.subheading}>
         Click the button below to start the game and embark on your journey!
@@ -53,7 +24,7 @@ const Home = () => {
           </li>
         </ul>
       </div>
-      <Button onClick={handleGameStart} title="Start Game" className={styles.startGameButton} />
+      <Button onClick={startGameHandler} title="Start Game" className={styles.startGameButton} />
       <div className={styles.flame} />
     </div>
   );

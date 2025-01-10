@@ -10,10 +10,9 @@ import Button from '../../components/sharedComponents/button/Button';
 import LoadingSpinner from '../../components/sharedComponents/loadingSpinner/LoadingSpinner';
 import ModalComponent from '../../components/sharedComponents/Modal/Modal';
 import { useFetchAdsQuery, useSolveAdMutation } from '../../features/apiSlice';
-import { setError } from '../../features/errorSlice';
-import { updateStats, resetGame } from '../../features/gameSlice';
+import { updateStats } from '../../features/gameSlice';
+import useErrorHandler from '../../hooks/useErrorHandler';
 import { ApplicationRoutes, Levels } from '../../utils/constants';
-import { logError } from '../../utils/logger';
 
 interface AdData {
   adId: string;
@@ -24,31 +23,30 @@ interface AdData {
 }
 
 const Ads: React.FC = () => {
-  const gameId = useSelector((state: RootState) => state.game.gameId);
+  const { gameId, score, gold, lives, level } = useSelector((state: RootState) => state.game);
+  const handleError = useErrorHandler();
   const { data, isLoading, error, refetch } = useFetchAdsQuery(gameId || '');
   const [solveAd] = useSolveAdMutation();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isMissionSuccess, setMissionSuccess] = useState<boolean>(false);
   const [sortedAds, setSortedAds] = useState<AdData[] | null>(null);
+  const navigate = useNavigate();
   const [sortConfig, setSortConfig] = useState<{ key: string; order: string }>({
     key: 'reward',
     order: 'ascending',
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handlePlay = async (adId: string) => {
     if (!gameId) {
       const errorMessage = 'Game ID is required to solve an ad.';
       const errorDetails = new Error(errorMessage);
-      logError(errorMessage, errorDetails, 'Ads - handlePlay');
-      dispatch(setError('Game ID is required to solve an ad.'));
+      handleError(errorMessage, errorDetails, 'useStartGame - startGameHandler');
       return;
     }
     try {
       const response = await solveAd({ gameId, adId }).unwrap();
       if (response.success) {
-        console.log('response.lives-->>', response.lives);
         dispatch(
           updateStats({
             score: response.score,
@@ -59,7 +57,6 @@ const Ads: React.FC = () => {
         setMissionSuccess(true);
         setModalOpen(true);
       } else {
-        console.log('response.lives-->>', response.lives);
         dispatch(
           updateStats({
             lives: response.lives,
@@ -68,19 +65,16 @@ const Ads: React.FC = () => {
         setMissionSuccess(false);
         setModalOpen(true);
       }
-      refetch();
+      if (response.lives > 0) {
+        refetch();
+      } else {
+        navigate(ApplicationRoutes.GAME_OVER);
+      }
     } catch (err) {
       const errorMessage = 'Failed to solve the ad:';
-      logError(errorMessage, err, 'Ads - handlePlay, solveAd');
-      dispatch(setError('Failed to solve the ad.'));
+      handleError(errorMessage, err, 'Ads - handlePlay, solveAd');
     }
   };
-
-  const handleGameQuit = () => {
-    dispatch(resetGame());
-    navigate(ApplicationRoutes.HOME);
-  };
-
   const applySorting = (ads: AdData[], config: { key: string; order: string }) => {
     const sorted = [...ads].sort((a, b) => {
       let valueA: number | string = a[config.key as keyof AdData];
@@ -120,54 +114,57 @@ const Ads: React.FC = () => {
 
   return (
     <div>
-      <div className={styles.sortContainer}>
-        <div className={styles.sortKey}>
-          <label htmlFor="sortKey">Sort By:</label>
-          <select
-            id="sortKey"
-            value={sortConfig.key}
-            className={styles.select}
-            onChange={(e) => handleSort(e.target.value, sortConfig.order)}
-          >
-            <option value="reward">Reward</option>
-            <option value="expiresIn">Expires In</option>
-            <option value="probability">Probability</option>
-          </select>
-        </div>
+      <div style={{ display: 'flex' }}>
+        {gameId && (
+          <div>
+            <span>Score: {score}</span> |<span> Gold: {gold}</span> |<span> Lives: {lives}</span> |
+            <span> Level: {level}</span>
+          </div>
+        )}
+        <div className={styles.sortContainer}>
+          <div className={styles.sortKey}>
+            <label htmlFor="sortKey">Sort By:</label>
+            <select
+              id="sortKey"
+              value={sortConfig.key}
+              className={styles.select}
+              onChange={(e) => handleSort(e.target.value, sortConfig.order)}
+            >
+              <option value="reward">Reward</option>
+              <option value="expiresIn">Expires In</option>
+              <option value="probability">Probability</option>
+            </select>
+          </div>
 
-        <div className={styles.sortToggle}>
-          <button
-            className={styles.toggleButton}
-            type="button"
-            onClick={() =>
-              handleSort(
-                sortConfig.key,
-                sortConfig.order === 'ascending' ? 'descending' : 'ascending'
-              )
-            }
-          >
-            <span className={styles.arrowIcon}>
-              {sortConfig.order === 'ascending' ? (
-                <>
-                  <FaArrowUpLong color="black" />
-                  <FaArrowDownLong color="grey" />
-                </>
-              ) : (
-                <>
-                  <FaArrowUpLong color="grey" />
-                  <FaArrowDownLong color="black" />
-                </>
-              )}
-            </span>
-          </button>
+          <div className={styles.sortToggle}>
+            <button
+              className={styles.toggleButton}
+              type="button"
+              onClick={() =>
+                handleSort(
+                  sortConfig.key,
+                  sortConfig.order === 'ascending' ? 'descending' : 'ascending'
+                )
+              }
+            >
+              <span className={styles.arrowIcon}>
+                {sortConfig.order === 'ascending' ? (
+                  <>
+                    <FaArrowUpLong color="black" />
+                    <FaArrowDownLong color="grey" />
+                  </>
+                ) : (
+                  <>
+                    <FaArrowUpLong color="grey" />
+                    <FaArrowDownLong color="black" />
+                  </>
+                )}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-
-      <div>
-        <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Shop" />
-        <Button onClick={handleGameQuit} title="Quit" />
-      </div>
-      <ModalComponent isOpen={isModalOpen}>
+      <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {isMissionSuccess ? (
           <>
             <h4>Congrats you won</h4>

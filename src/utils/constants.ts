@@ -15,4 +15,5 @@ export const ApplicationRoutes = {
   HOME: '/',
   SHOP: '/shop',
   ADS: '/ads',
+  GAME_OVER: '/game-over',
 };

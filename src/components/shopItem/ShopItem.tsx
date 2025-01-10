@@ -36,15 +36,15 @@ const ShopItem: React.FC<ShopItemProps> = ({ id, name, cost, handleClick }) => {
         disabled={!isAffordable}
         className={styles.buyButton}
       />
-      <ModalComponent isOpen={isModalOpen}>
+      <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className={styles.modalContent}>
           <h4 className={styles.modalMessage}>Confirm Purchase</h4>
           <p>
             This item costs <span>{cost} gold</span>. Are you sure you want to buy it?
           </p>
           <div className={styles.modalActions}>
-            <Button onClick={handleShopItemBuy} title="Buy Now" />
             <Button onClick={() => setModalOpen(false)} title="Cancel" />
+            <Button onClick={handleShopItemBuy} title="Buy Now" />
           </div>
         </div>
       </ModalComponent>

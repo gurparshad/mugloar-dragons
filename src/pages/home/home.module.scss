@@ -5,20 +5,29 @@
   justify-content: center;
   gap: 20px;
   color: white;
-  margin-top: 40px;
+  margin-top: 30px;
+}
+
+.heroImage {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: cover;
 }
 
 .heading {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #827a7a;
+  color: #00a99d;
 }
 
 .subheading {
   font-size: 1.2rem;
   font-weight: 400;
-  color: #827a7a;
+  color: #014742;
 }
 
 .rulesContainer {
@@ -94,10 +103,12 @@
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 0.8;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;

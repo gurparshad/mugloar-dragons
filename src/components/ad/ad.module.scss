@@ -32,7 +32,6 @@
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: auto;
-  /* Pushes other content down and keeps the message at the top */
 }
 
 .adDetails {
@@ -40,7 +39,6 @@
   flex-direction: column;
   gap: 5px;
   flex-grow: 1;
-  /* Allows the details section to expand and push the button down */
 }
 
 .adDetails p {
@@ -64,4 +62,9 @@
   color: #002f56;
   margin: 10px 0;
   font-size: 1rem;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
 }

@@ -16,7 +16,7 @@ const App: React.FC = () => {
   };
   return (
     <>
-      <ModalComponent isOpen={!!errorMessage}>
+      <ModalComponent isOpen={!!errorMessage} onClose={closeErrorModal}>
         <div style={{ color: 'red' }}>
           <h3>Error</h3>
           <p>{errorMessage}</p>

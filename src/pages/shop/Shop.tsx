@@ -8,9 +8,8 @@ import LoadingSpinner from '../../components/sharedComponents/loadingSpinner/Loa
 import ModalComponent from '../../components/sharedComponents/Modal/Modal';
 import ShopItem from '../../components/shopItem/ShopItem';
 import { useFetchShopItemsQuery, usePurchaseItemMutation } from '../../features/apiSlice';
-import { setError } from '../../features/errorSlice';
 import { updateStats } from '../../features/gameSlice';
-import { logError } from '../../utils/logger';
+import useErrorHandler from '../../hooks/useErrorHandler';
 
 const Shop = () => {
   const { gameId, gold, level } = useSelector((state: RootState) => state.game);
@@ -19,6 +18,7 @@ const Shop = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [isPurchaseSuccess, setPurchaseSuccess] = useState<boolean>(false);
+  const handleError = useErrorHandler();
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Failed to load shop items. Please try again later.</div>;
@@ -27,8 +27,7 @@ const Shop = () => {
     if (!gameId) {
       const errorMessage = 'Game ID is required to purchase an item.';
       const errorDetails = new Error(errorMessage);
-      logError(errorMessage, errorDetails, 'Shop - handleItemPurchase');
-      dispatch(setError('Game ID is required to purchase an item.'));
+      handleError(errorMessage, errorDetails, 'Shop - handleItemPurchase');
       return;
     }
     try {
@@ -48,8 +47,7 @@ const Shop = () => {
       }
     } catch (error) {
       const errorMessage = 'Error purchasing item';
-      logError(errorMessage, error, 'Shop - handleItemPurchase, purchaseItem');
-      dispatch(setError('An error occurred during the purchase. Please try again.'));
+      handleError(errorMessage, error, 'Shop - handleItemPurchase, purchaseItem');
     }
   };
 
@@ -71,7 +69,7 @@ const Shop = () => {
       ) : (
         <div>No items available in the shop.</div>
       )}
-      <ModalComponent isOpen={isModalOpen}>
+      <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {isPurchaseSuccess ? (
           <div>
             Purchase successful! Gold Left: {gold}, Level: {level}

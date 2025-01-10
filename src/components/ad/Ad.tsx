@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './ad.module.scss';
 import { RootState } from '../../app/store';
 import { ApplicationRoutes } from '../../utils/constants';
-import { getGameLevelCode } from '../../utils/helpers';
+import { decodeBase64, getGameLevelCode } from '../../utils/helpers';
 import Button from '../sharedComponents/button/Button';
 import ModalComponent from '../sharedComponents/Modal/Modal';
 
@@ -23,6 +23,9 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [levelCode, setLevelCode] = useState<number | null>(0);
 
+  const decodedMessage = decodeBase64(message);
+  const decodedProbability = decodeBase64(probability);
+
   const handleAdClick = (adProbability: string) => {
     setModalOpen(true);
     setLevelCode(getGameLevelCode(adProbability));
@@ -35,10 +38,11 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
 
   // @ts-ignore
   const isLevelSufficient = game.level >= getGameLevelCode(probability);
+  // check please it might be possible that the decoded ads are corrupted and user cant play them. i am getting error on click on them.
 
   return (
     <div className={`${styles.ad} ${isLevelSufficient ? styles.adSuccess : styles.adFailure}`}>
-      <h3 className={styles.adMessage}>{message}</h3>
+      <h3 className={styles.adMessage}>{decodedMessage}</h3>
       <div className={styles.adDetails}>
         <p>
           🎁 Reward: <span>{reward}</span>
@@ -47,7 +51,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
           🗓️ Expires In: <span>{expiresIn} Turns</span>
         </p>
         <p>
-          🎲 Probability: <span>{probability}</span>
+          🎲 Probability: <span>{decodedProbability}</span>
         </p>
       </div>
       <Button
@@ -55,9 +59,10 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
         title="Play Now"
         styleType={isLevelSufficient ? 'success' : 'failure'}
       />
-      <ModalComponent isOpen={isModalOpen}>
+      <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className={styles.modalContent}>
-          <Button onClick={() => setModalOpen(false)} title="Close" />
+          <Button onClick={() => setModalOpen(false)} title="Go Back" />
+
           {/* @ts-ignore */}
           {levelCode > game.level ? (
             <>
@@ -65,8 +70,10 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
                 You are at level {game.level} which is not sufficient for this task of level{' '}
                 {levelCode}. Please Upgrade
               </h3>
-              <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
-              <Button onClick={handleClickPlay} title="Play Anyway" />
+              <div className={styles.buttonContainer}>
+                <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
+                <Button onClick={handleClickPlay} title="Play Anyway" />
+              </div>
             </>
           ) : (
             <Button onClick={handleClickPlay} title="Play Now" />
