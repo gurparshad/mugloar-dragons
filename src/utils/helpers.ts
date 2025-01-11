@@ -10,8 +10,19 @@ export const getGameLevelCode = (probability: string) => {
 };
 
 const isBase64 = (str: string) => {
+  if (!str || str.trim() === '') return false;
+
+  if (str.length % 4 !== 0) return false;
+
+  const base64Regex = /^[A-Za-z0-9+/]+={0,2}$/;
+  if (!base64Regex.test(str)) return false;
+
   try {
-    return btoa(atob(str)) === str;
+    const decoded = atob(str);
+
+    if (!/^[\x20-\x7E]*$/.test(decoded)) return false;
+
+    return true;
   } catch {
     return false;
   }

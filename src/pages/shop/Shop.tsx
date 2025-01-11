@@ -37,6 +37,7 @@ const Shop = () => {
           updateStats({
             gold: response.gold,
             level: response.level,
+            lives: response.lives,
           })
         );
         setModalOpen(true);

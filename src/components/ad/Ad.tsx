@@ -23,7 +23,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [levelCode, setLevelCode] = useState<number | null>(0);
 
-  const decodedMessage = decodeBase64(message);
+  // const decodedMessage = decodeBase64(message);
   const decodedProbability = decodeBase64(probability);
 
   const handleAdClick = (adProbability: string) => {
@@ -42,7 +42,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
 
   return (
     <div className={`${styles.ad} ${isLevelSufficient ? styles.adSuccess : styles.adFailure}`}>
-      <h3 className={styles.adMessage}>{decodedMessage}</h3>
+      <h3 className={styles.adMessage}>{message}</h3>
       <div className={styles.adDetails}>
         <p>
           🎁 Reward: <span>{reward}</span>
@@ -51,11 +51,11 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
           🗓️ Expires In: <span>{expiresIn} Turns</span>
         </p>
         <p>
-          🎲 Probability: <span>{decodedProbability}</span>
+          🎲 Probability: <span>{probability}</span>
         </p>
       </div>
       <Button
-        onClick={() => handleAdClick(probability)}
+        onClick={() => handleAdClick(decodedProbability)}
         title="Play Now"
         styleType={isLevelSufficient ? 'success' : 'failure'}
       />

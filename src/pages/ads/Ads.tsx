@@ -13,6 +13,7 @@ import { useFetchAdsQuery, useSolveAdMutation } from '../../features/apiSlice';
 import { updateStats } from '../../features/gameSlice';
 import useErrorHandler from '../../hooks/useErrorHandler';
 import { ApplicationRoutes, Levels } from '../../utils/constants';
+import { decodeBase64 } from '../../utils/helpers';
 
 interface AdData {
   adId: string;
@@ -45,7 +46,10 @@ const Ads: React.FC = () => {
       return;
     }
     try {
-      const response = await solveAd({ gameId, adId }).unwrap();
+      const decodedAdId = decodeBase64(adId);
+      console.log('adId-->>', adId);
+      console.log('decodedAdId-->>', decodedAdId);
+      const response = await solveAd({ gameId, adId: decodedAdId }).unwrap();
       if (response.success) {
         dispatch(
           updateStats({
@@ -114,16 +118,18 @@ const Ads: React.FC = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex' }}>
+      <div className={styles.gameStatsAndScoreWrapper}>
         {gameId && (
-          <div>
+          <div className={styles.scoreCard}>
             <span>Score: {score}</span> |<span> Gold: {gold}</span> |<span> Lives: {lives}</span> |
             <span> Level: {level}</span>
           </div>
         )}
         <div className={styles.sortContainer}>
           <div className={styles.sortKey}>
-            <label htmlFor="sortKey">Sort By:</label>
+            <label className={styles.label} htmlFor="sortKey">
+              Sort By:
+            </label>
             <select
               id="sortKey"
               value={sortConfig.key}
