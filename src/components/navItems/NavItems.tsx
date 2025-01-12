@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import styles from './navItems.module.scss';
 import { resetGame } from '../../features/gameSlice';
@@ -10,6 +10,7 @@ import Button from '../sharedComponents/button/Button';
 const NavItems = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleGameQuit = () => {
     dispatch(resetGame());
@@ -18,11 +19,16 @@ const NavItems = () => {
 
   return (
     <div className={styles.navItems}>
-      <Button
-        onClick={() => navigate(ApplicationRoutes.SHOP)}
-        title="Shop"
-        className={styles.navButton}
-      />
+      {location.pathname === ApplicationRoutes.SHOP ? (
+        <Button title="Back to Game" onClick={() => navigate(ApplicationRoutes.ADS)} />
+      ) : (
+        <Button
+          onClick={() => navigate(ApplicationRoutes.SHOP)}
+          title="Shop"
+          className={styles.navButton}
+        />
+      )}
+
       <Button
         onClick={handleGameQuit}
         title="Quit"

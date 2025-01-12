@@ -1,5 +1,9 @@
+@import '../../../styles/colors';
+@import '../../../styles/shadows';
+@import '../../../styles/variables';
+
 .button {
-  border-radius: 10px;
+  border-radius: $border-radius-md;
   min-width: 120px;
   padding: 10px 15px;
   height: auto;
@@ -10,37 +14,37 @@
     background-color 0.3s,
     box-shadow 0.3s,
     transform 0.2s;
-  color: white;
+  color: $color-white;
   border: none;
-  background-color: #0073ce;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: $color-button-bg;
+  box-shadow: $shadow-medium;
 }
 
 .button:hover {
-  background-color: #005fa3;
+  background-color: $color-button-hover-bg;
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow-medium-dark;
 }
 
 .button:active {
   transform: translateY(0);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-medium;
 }
 
 .button.success {
-  background-color: #00a99d;
-  box-shadow: 0 4px 8px rgba(0, 169, 157, 0.3);
+  background-color: $color-primary;
+  box-shadow: $shadow-green;
 }
 
 .button.success:hover {
-  background-color: #008c81;
+  background-color: $color-button-success-hover;
 }
 
 .button.failure {
-  background-color: #ce3700;
-  box-shadow: 0 4px 8px rgba(206, 55, 0, 0.3);
+  background-color: $color-button-failure-bg;
+  box-shadow: $shadow-red;
 }
 
 .button.failure:hover {
-  background-color: #a92d00;
+  background-color: $color-button-failure-hover;
 }

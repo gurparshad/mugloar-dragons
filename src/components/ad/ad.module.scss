@@ -1,12 +1,16 @@
+@import '../../styles/colors';
+@import '../../styles/shadows';
+@import '../../styles/variables';
+
 .ad {
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-light;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 15px;
   max-width: 260px;
-  background: white;
+  background: $color-white;
   transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
   height: 100%;
@@ -14,21 +18,21 @@
 
 .ad:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: $shadow-medium-light;
 }
 
 .adSuccess {
-  border: 2px solid #00a99d;
-  background: #e6f5f4;
+  border: 2px solid $color-primary;
+  background: $color-bg-light-green;
 }
 
 .adFailure {
-  border: 2px solid #ce3700;
-  background: #fbe8e7;
+  border: 2px solid $color-border-red;
+  background: $color-bg-light-red;
 }
 
 .adMessage {
-  color: #002f56;
+  color: $color-text-secondary;
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: auto;
@@ -44,13 +48,13 @@
 .adDetails p {
   margin: 0;
   font-size: 0.9rem;
-  color: #002f56;
+  color: $color-text-secondary;
   font-weight: 500;
 }
 
 .adDetails span {
   font-weight: bold;
-  color: #0073ce;
+  color: $color-button-bg;
 }
 
 .modalContent {
@@ -59,7 +63,7 @@
 }
 
 .modalMessage {
-  color: #002f56;
+  color: $color-text-secondary;
   margin: 10px 0;
   font-size: 1rem;
 }
@@ -67,4 +71,10 @@
 .buttonContainer {
   display: flex;
   gap: 10px;
+}
+
+@media (max-width: $breakpoint-md) {
+  .ad {
+    max-width: 100%;
+  }
 }

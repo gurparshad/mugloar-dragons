@@ -25,7 +25,6 @@ const Home = () => {
         </ul>
       </div>
       <Button onClick={startGameHandler} title="Start Game" className={styles.startGameButton} />
-      <div className={styles.flame} />
     </div>
   );
 };

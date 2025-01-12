@@ -1,14 +1,18 @@
+@import '../../styles/colors';
+@import '../../styles/shadows';
+@import '../../styles/variables';
+
 .header {
   display: flex;
   justify-content: space-between;
-  background: #00a99d;
+  background: $color-primary;
   align-items: center;
   position: sticky;
   top: 0;
   padding: 10px 30px;
-  z-index: 1001;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: $z-index;
+  color: $color-white;
+  box-shadow: $shadow-light;
 }
 
 .logo {

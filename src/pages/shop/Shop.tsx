@@ -54,7 +54,6 @@ const Shop = () => {
 
   return (
     <div>
-      <h2>Shop</h2>
       {data?.length ? (
         <ul className={styles.shopItemList}>
           {data?.map((item) => (

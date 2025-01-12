@@ -1,3 +1,7 @@
+@import '../../styles/colors';
+@import '../../styles/shadows';
+@import '../../styles/variables';
+
 .adsList {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -11,84 +15,12 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
-  z-index: 1000;
+  z-index: $z-index;
   position: sticky;
   top: 90px;
-  background-color: #00a99d;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: $color-primary;
+  box-shadow: $shadow-medium;
   padding: 10px;
-}
-
-.sortContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #333333;
-  margin-right: 20px;
-}
-
-.select {
-  padding: 8px 12px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #333333;
-  background-color: white;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.select:focus {
-  border-color: #00a99d;
-}
-
-.sortToggle {
-  display: flex;
-  align-items: center;
-}
-
-.toggleButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  background-color: white;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.toggleButton:hover {
-  background-color: #12ded1;
-  color: white;
-  border-color: #00a99d;
-}
-
-.arrowIcon {
-  display: flex;
-  gap: 5px;
-}
-
-.activeIcon {
-  color: black;
-  font-size: 1.2rem;
-}
-
-.inactiveIcon {
-  color: #cccccc;
-  font-size: 1.2rem;
 }
 
 .scoreCard {
@@ -97,25 +29,31 @@
   align-items: center;
   gap: 15px;
   padding: 10px 15px;
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: $color-bg-light;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-light;
   font-size: 14px;
-  color: #333;
+  color: $color-grey-dark;
 }
 
 .scoreCard span {
   white-space: nowrap;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: $breakpoint-lg) {
   .adsList {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
+  .adsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
   .adsList {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -126,7 +64,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $breakpoint-xs) {
   .adsList {
     grid-template-columns: repeat(1, 1fr);
   }

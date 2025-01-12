@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowDownLong, FaArrowUpLong } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,11 +8,13 @@ import Ad from '../../components/ad/Ad';
 import Button from '../../components/sharedComponents/button/Button';
 import LoadingSpinner from '../../components/sharedComponents/loadingSpinner/LoadingSpinner';
 import ModalComponent from '../../components/sharedComponents/Modal/Modal';
+import SortControls from '../../components/sortControls/SortControls';
 import { useFetchAdsQuery, useSolveAdMutation } from '../../features/apiSlice';
 import { updateStats } from '../../features/gameSlice';
 import useErrorHandler from '../../hooks/useErrorHandler';
-import { ApplicationRoutes, Levels } from '../../utils/constants';
+import { ApplicationRoutes } from '../../utils/constants';
 import { decodeBase64 } from '../../utils/helpers';
+import { applySorting } from '../../utils/sorting';
 
 interface AdData {
   adId: string;
@@ -47,8 +48,6 @@ const Ads: React.FC = () => {
     }
     try {
       const decodedAdId = decodeBase64(adId);
-      console.log('adId-->>', adId);
-      console.log('decodedAdId-->>', decodedAdId);
       const response = await solveAd({ gameId, adId: decodedAdId }).unwrap();
       if (response.success) {
         dispatch(
@@ -79,37 +78,11 @@ const Ads: React.FC = () => {
       handleError(errorMessage, err, 'Ads - handlePlay, solveAd');
     }
   };
-  const applySorting = (ads: AdData[], config: { key: string; order: string }) => {
-    const sorted = [...ads].sort((a, b) => {
-      let valueA: number | string = a[config.key as keyof AdData];
-      let valueB: number | string = b[config.key as keyof AdData];
-
-      if (config.key === 'probability') {
-        valueA = Levels.find((level) => level.probability === valueA)?.value ?? 0;
-        valueB = Levels.find((level) => level.probability === valueB)?.value ?? 0;
-      }
-
-      if (config.order === 'ascending') {
-        if (valueA < valueB) return -1;
-        if (valueA > valueB) return 1;
-        return 0;
-      }
-
-      if (valueA > valueB) return -1;
-      if (valueA < valueB) return 1;
-      return 0;
-    });
-
-    setSortedAds(sorted);
-  };
-
-  const handleSort = (key: string, order: string) => {
-    setSortConfig({ key, order });
-  };
 
   useEffect(() => {
     if (data) {
-      applySorting(data, sortConfig);
+      const sorted = applySorting(data, sortConfig);
+      setSortedAds(sorted);
     }
   }, [data, sortConfig]);
 
@@ -125,50 +98,10 @@ const Ads: React.FC = () => {
             <span> Level: {level}</span>
           </div>
         )}
-        <div className={styles.sortContainer}>
-          <div className={styles.sortKey}>
-            <label className={styles.label} htmlFor="sortKey">
-              Sort By:
-            </label>
-            <select
-              id="sortKey"
-              value={sortConfig.key}
-              className={styles.select}
-              onChange={(e) => handleSort(e.target.value, sortConfig.order)}
-            >
-              <option value="reward">Reward</option>
-              <option value="expiresIn">Expires In</option>
-              <option value="probability">Probability</option>
-            </select>
-          </div>
-
-          <div className={styles.sortToggle}>
-            <button
-              className={styles.toggleButton}
-              type="button"
-              onClick={() =>
-                handleSort(
-                  sortConfig.key,
-                  sortConfig.order === 'ascending' ? 'descending' : 'ascending'
-                )
-              }
-            >
-              <span className={styles.arrowIcon}>
-                {sortConfig.order === 'ascending' ? (
-                  <>
-                    <FaArrowUpLong color="black" />
-                    <FaArrowDownLong color="grey" />
-                  </>
-                ) : (
-                  <>
-                    <FaArrowUpLong color="grey" />
-                    <FaArrowDownLong color="black" />
-                  </>
-                )}
-              </span>
-            </button>
-          </div>
-        </div>
+        <SortControls
+          sortConfig={sortConfig}
+          onSortChange={(key, order) => setSortConfig({ key, order })}
+        />
       </div>
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {isMissionSuccess ? (

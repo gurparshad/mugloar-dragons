@@ -1,11 +1,15 @@
+@import '../../styles/colors';
+@import '../../styles/shadows';
+@import '../../styles/variables';
+
 .footer {
-  background-color: #00a99d;
-  color: #ffffff;
+  background-color: $color-primary;
+  color: $color-white;
   padding: 10px 20px;
   position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
-  z-index: 1000;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: $z-index;
+  box-shadow: $shadow-light-reverse;
 }

@@ -1,5 +1,4 @@
 $font-family-primary: 'Helvetica Neue', Arial, sans-serif;
-$font-family-secondary: 'Georgia', serif;
 
 /* Base Font Sizes */
 $font-size-base: 16px;
@@ -8,7 +7,6 @@ $font-size-sm: 0.875rem; // 14px
 
 /* Line Heights */
 $line-height-base: 1.5;
-$line-height-heading: 1.2;
 
 /* Headings */
 h1,
@@ -17,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-secondary;
+  font-family: $font-family-primary;
   font-weight: bold;
 }
 

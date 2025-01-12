@@ -1,0 +1,75 @@
+@import '../../styles/colors';
+@import '../../styles/variables';
+@import '../../styles/shadows';
+
+.sortContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  background-color: $color-bg-light;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-light;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $color-grey-dark;
+  margin-right: 20px;
+}
+
+.select {
+  padding: 8px 12px;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-md;
+  font-size: 0.9rem;
+  color: $color-grey-dark;
+  background-color: $color-white;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.select:focus {
+  border-color: $color-primary;
+}
+
+.sortToggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-md;
+  background-color: $color-white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.toggleButton:hover {
+  background-color: $color-teal-bright;
+  color: $color-white;
+  border-color: $color-primary;
+}
+
+.arrowIcon {
+  display: flex;
+  gap: 5px;
+}
+
+.activeIcon {
+  color: $color-black;
+  font-size: 1.2rem;
+}
+
+.inactiveIcon {
+  color: $color-border-light;
+  font-size: 1.2rem;
+}

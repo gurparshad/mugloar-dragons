@@ -1,13 +1,16 @@
-/* Card Design */
+@import '../../styles/colors';
+@import '../../styles/shadows';
+@import '../../styles/variables';
+
 .shopItem {
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-light;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 15px;
   max-width: 260px;
-  background: #f0f8ff; /* Bluish background */
+  background: $color-ice-blue;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -16,17 +19,17 @@
 
 .shopItem:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: $shadow-medium-light;
 }
 
 .affordable {
-  border: 2px solid #0073ce;
-  background: #eaf6fd;
+  border: 2px solid $color-button-bg;
+  background: $color-pale-blue;
 }
 
 .unaffordable {
-  border: 2px solid #ead2ca;
-  background: #f3eeee;
+  border: 2px solid $color-light-beige;
+  background: $color-pale-pink;
 }
 
 .itemContent {
@@ -36,12 +39,12 @@
 .itemName {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #002f56;
+  color: $color-text-secondary;
 }
 
 .itemCost {
   font-size: 1rem;
-  color: #555;
+  color: $color-grey-dark;
   font-weight: 500;
 }
 
@@ -51,9 +54,9 @@
   font-size: 1rem;
   font-weight: 600;
   color: white;
-  background: #0073ce;
+  background: $color-button-bg;
   border: none;
-  border-radius: 8px;
+  border-radius: $border-radius-md;
   cursor: pointer;
   transition:
     0.2s ease,
@@ -61,12 +64,12 @@
 }
 
 .buyButton:disabled {
-  background: #ccc;
+  background: $color-border-light;
   cursor: not-allowed;
 }
 
 .buyButton:hover:not(:disabled) {
-  background: #0056b3;
+  background: $color-button-hover-bg;
 }
 
 .modalContent {
@@ -77,7 +80,7 @@
 .modalMessage {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #002f56;
+  color: $color-text-secondary;
   margin-bottom: 15px;
 }
 
