@@ -22,6 +22,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [levelCode, setLevelCode] = useState<number | null>(0);
+  let isLevelSufficient = false;
 
   // const decodedMessage = decodeBase64(message);
   const decodedProbability = decodeBase64(probability);
@@ -36,9 +37,14 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
     handlePlay();
   };
 
-  // @ts-ignore
-  const isLevelSufficient = game.level >= getGameLevelCode(probability);
-  // check please it might be possible that the decoded ads are corrupted and user cant play them. i am getting error on click on them.
+  const gameLevelCode = getGameLevelCode(probability);
+  if (gameLevelCode !== null) {
+    isLevelSufficient = game.level >= gameLevelCode;
+  } else {
+    return null;
+  }
+
+  getGameLevelCode(probability);
 
   return (
     <div className={`${styles.ad} ${isLevelSufficient ? styles.adSuccess : styles.adFailure}`}>
@@ -62,9 +68,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className={styles.modalContent}>
           <Button onClick={() => setModalOpen(false)} title="Go Back" />
-
-          {/* @ts-ignore */}
-          {levelCode > game.level ? (
+          {levelCode && levelCode > game.level ? (
             <>
               <h3 className={styles.modalMessage}>
                 You are at level {game.level} which is not sufficient for this task of level{' '}
