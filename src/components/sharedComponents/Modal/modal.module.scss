@@ -1,5 +1,6 @@
 @import '../../../styles/colors';
 @import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .modalOverlay {
   background-color: rgba(0, 0, 0, 0.7);
@@ -8,9 +9,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter();
   animation: fadeIn 0.3s ease;
   z-index: $z-index-overlay;
 }
@@ -23,10 +22,8 @@
   width: 300px;
   height: 300px;
   animation: zoomIn 0.5s ease forwards;
-  display: flex;
-  justify-content: center;
+  @include flexCenter();
   text-align: center;
-  align-items: center;
   position: relative;
   z-index: $z-index-modal;
   opacity: 1;

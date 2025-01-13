@@ -1,6 +1,7 @@
 @import '../../styles/colors';
 @import '../../styles/shadows';
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .adsList {
   display: grid;
@@ -24,9 +25,7 @@
 }
 
 .scoreCard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flexCenter(center, space-between);
   gap: 15px;
   padding: 10px 15px;
   background-color: $color-bg-light;
@@ -59,8 +58,7 @@
   }
 
   .gameStatsAndScoreWrapper {
-    display: flex;
-    flex-direction: column;
+    @include flexColumn();
   }
 }
 

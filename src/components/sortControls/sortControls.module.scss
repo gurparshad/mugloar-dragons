@@ -1,11 +1,10 @@
 @import '../../styles/colors';
 @import '../../styles/variables';
 @import '../../styles/shadows';
+@import '../../styles/mixins';
 
 .sortContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flexCenter(center, space-between);
   gap: 20px;
   padding: 15px;
   background-color: $color-bg-light;
@@ -37,14 +36,11 @@
 }
 
 .sortToggle {
-  display: flex;
-  align-items: center;
+  @include flexCenter();
 }
 
 .toggleButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flexCenter();
   padding: 8px 12px;
   border: 1px solid $color-border-light;
   border-radius: $border-radius-md;

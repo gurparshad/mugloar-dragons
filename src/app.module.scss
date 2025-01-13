@@ -1,8 +1,8 @@
 @import './styles/colors';
+@import './styles/mixins';
 
 .errorContainer {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
 }
 
 .errorText {

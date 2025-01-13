@@ -1,5 +1,6 @@
 @import '../../../styles/colors';
 @import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .loadingContainer {
   position: fixed;
@@ -7,9 +8,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter();
   background-color: rgba(255, 255, 255, 0.5);
   z-index: $z-index-loader;
 }

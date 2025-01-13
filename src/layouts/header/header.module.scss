@@ -1,12 +1,11 @@
 @import '../../styles/colors';
 @import '../../styles/shadows';
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .header {
-  display: flex;
-  justify-content: space-between;
+  @include flexCenter(center, space-between);
   background: $color-primary;
-  align-items: center;
   position: sticky;
   top: 0;
   padding: 10px 30px;

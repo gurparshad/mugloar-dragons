@@ -1,12 +1,12 @@
 @import '../../styles/colors';
 @import '../../styles/shadows';
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .ad {
+  @include flexColumn();
   border-radius: $border-radius-lg;
   box-shadow: $shadow-light;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
   padding: 15px;
   max-width: 260px;
@@ -41,8 +41,7 @@
 }
 
 .adDetails {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
   gap: 5px;
   flex-grow: 1;
 }
@@ -72,7 +71,6 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: row;
   gap: 20px;
 }
 

@@ -1,6 +1,7 @@
+@import '../../styles/mixins';
+
 .layout {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn();
   min-height: 100vh;
 }
 
