@@ -11,7 +11,9 @@
   padding: 15px;
   max-width: 260px;
   background: $color-white;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   overflow: hidden;
   height: 100%;
 }
