@@ -1,48 +1,47 @@
-# Getting Started with Create React App
+# Dragons of Mugloar
 
-Node version used - 20
+Here is the live demo of the application deployed on netlify.
+https://mugloar-dragon.netlify.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup Instructions
 
-## Available Scripts
+- Clone the project with this command - "git clone https://github.com/gurparshad/mugloar-dragons.git"
+- Now you can follow the instructions below.
 
-In the project directory, you can run:
+### With Docker
 
-### `npm start`
+- Ensure Docker is installed on your machine. You can download and install Docker from the official website. https://docs.docker.com/get-started/get-docker/
+- Run command "docker build -t mugloar-dragons ." to build the docker image.
+- Run "docker run -p 3000:3000 mugloar-dragons" to start the container.
+- You can name the Docker image anything you like; in the example above, it is named mugloar-dragons.
+- Application will start at http://localhost:3000
+- You can use either Docker Desktop (with its graphical interface) or the Docker CLI (Command Line Interface) to manage and run the Docker containers, depending on your preference.
+- Find the running container ID by listing all containers using command - "docker ps"
+- Stop the container by running: - "docker stop <container-id>"
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Without Docker
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node version 20 is used in the project so please install that to avoid any errors. You can download it from https://nodejs.org/en or Install it using nvm https://github.com/nvm-sh/nvm
+- Change the node version by running this command "nvm use 20"
+- Run "npm install" to install the packages
+- Run "npm run start" to start the application.
+- Application will start at http://localhost:3000
 
-### `npm test`
+### `Tech Stack`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Typescript
+- SCSS
+- React (Create React app)
+- Node version 20
+- Prettier for Formatting
+- Eslint for linting
+- RTK - Redux Tool Kit
+- Local storage for persistence.
+- Best practices.
 
-### `npm run build`
+### Further Improvements in the project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Remove the depreciating warnings regarding Dart Sass package update in the future. This can be resolved by suppressing the warnings using the tools like react-app-rewired. This package allows us to override the CRA Webpack configuration without ejecting.
+- Include Test cases.
+- Sort Configuration can also be stored in the local storage.
+- UI can always be improved for example the the score and sorting section could be more visually appealing.
