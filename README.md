@@ -25,6 +25,9 @@ User will be able to try and play any ads he want, but there will be chances tha
 9. Probability: "Rather detrimental" | Value: 8 | Description: "A dangerous task, likely to lead to failure or negative outcomes."
 10. Probability: "Suicide mission" | Value: 9 | Description: "Almost certain failure, proceed with extreme caution."
 
+Base64 issue - There were some cases where backend api returns the data in base64 encoded format so i wrote a separate methods to decode it for better user experience.
+Corrupted Probabilities - There were some instance where probabilities were not matching even after decoding so i decided to not to show them to the user.
+
 ## Setup Instructions
 
 - Clone the project with this command - "git clone https://github.com/gurparshad/mugloar-dragons.git"
