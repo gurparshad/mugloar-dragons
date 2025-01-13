@@ -121,10 +121,10 @@ const Ads: React.FC = () => {
       </div>
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         {isMissionSuccess ? (
-          <>
+          <div>
             <h4>Congrats you won</h4>
             <Button onClick={() => setModalOpen(false)} title="Continue Playing" />
-          </>
+          </div>
         ) : (
           <>
             <h3>You Lose</h3>
