@@ -1,0 +1,10 @@
+@import './styles/colors';
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorText {
+  color: $color-text-error;
+}

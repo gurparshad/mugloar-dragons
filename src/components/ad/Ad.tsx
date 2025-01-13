@@ -67,18 +67,20 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
       />
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className={styles.modalContent}>
-          <Button onClick={() => setModalOpen(false)} title="Go Back" />
+          <h3 className={styles.modalMessage}>
+            You are at level {game.level} which is not sufficient for this task of level {levelCode}
+            . Please Upgrade
+          </h3>
+          <Button
+            onClick={() => setModalOpen(false)}
+            title="Go Back"
+            className={styles.goBackButton}
+          />
           {levelCode && levelCode > game.level ? (
-            <>
-              <h3 className={styles.modalMessage}>
-                You are at level {game.level} which is not sufficient for this task of level{' '}
-                {levelCode}. Please Upgrade
-              </h3>
-              <div className={styles.buttonContainer}>
-                <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
-                <Button onClick={handleClickPlay} title="Play Anyway" />
-              </div>
-            </>
+            <div className={styles.buttonContainer}>
+              <Button onClick={() => navigate(ApplicationRoutes.SHOP)} title="Upgrade" />
+              <Button onClick={handleClickPlay} title="Play Anyway" />
+            </div>
           ) : (
             <Button onClick={handleClickPlay} title="Play Now" />
           )}

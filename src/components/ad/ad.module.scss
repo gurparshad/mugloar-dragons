@@ -70,7 +70,12 @@
 
 .buttonContainer {
   display: flex;
-  gap: 10px;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.goBackButton {
+  margin-bottom: 10px;
 }
 
 @media (max-width: $breakpoint-md) {
