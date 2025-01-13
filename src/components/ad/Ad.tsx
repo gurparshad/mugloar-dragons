@@ -24,7 +24,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
   const [levelCode, setLevelCode] = useState<number | null>(0);
   let isLevelSufficient = false;
 
-  // const decodedMessage = decodeBase64(message);
+  const decodedMessage = decodeBase64(message);
   const decodedProbability = decodeBase64(probability);
 
   const handleAdClick = (adProbability: string) => {
@@ -37,7 +37,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
     handlePlay();
   };
 
-  const gameLevelCode = getGameLevelCode(probability);
+  const gameLevelCode = getGameLevelCode(decodedProbability);
   if (gameLevelCode !== null) {
     isLevelSufficient = game.level >= gameLevelCode;
   } else {
@@ -48,7 +48,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
 
   return (
     <div className={`${styles.ad} ${isLevelSufficient ? styles.adSuccess : styles.adFailure}`}>
-      <h3 className={styles.adMessage}>{message}</h3>
+      <h3 className={styles.adMessage}>{decodedMessage}</h3>
       <div className={styles.adDetails}>
         <p>
           🎁 Reward: <span>{reward}</span>
@@ -57,7 +57,7 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
           🗓️ Expires In: <span>{expiresIn} Turns</span>
         </p>
         <p>
-          🎲 Probability: <span>{probability}</span>
+          🎲 Probability: <span>{decodedProbability}</span>
         </p>
       </div>
       <Button
@@ -67,10 +67,12 @@ const Ad: React.FC<AdProps> = ({ message, reward, expiresIn, probability, handle
       />
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
         <div className={styles.modalContent}>
-          <h3 className={styles.modalMessage}>
-            You are at level {game.level} which is not sufficient for this task of level {levelCode}
-            . Please Upgrade
-          </h3>
+          {levelCode && levelCode > game.level ? (
+            <h3 className={styles.modalMessage}>
+              You are at level {game.level} which is not sufficient for this task of level{' '}
+              {levelCode}. Please Upgrade
+            </h3>
+          ) : null}
           <Button
             onClick={() => setModalOpen(false)}
             title="Go Back"

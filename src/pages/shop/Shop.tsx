@@ -12,7 +12,7 @@ import { updateStats } from '../../features/gameSlice';
 import useErrorHandler from '../../hooks/useErrorHandler';
 
 const Shop = () => {
-  const { gameId, gold, level } = useSelector((state: RootState) => state.game);
+  const { gameId, gold, level, lives } = useSelector((state: RootState) => state.game);
   const [purchaseItem] = usePurchaseItemMutation();
   const { data, isLoading, isError } = useFetchShopItemsQuery(gameId || '');
   const dispatch = useDispatch();
@@ -70,14 +70,16 @@ const Shop = () => {
         <div>No items available in the shop.</div>
       )}
       <ModalComponent isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        {isPurchaseSuccess ? (
-          <div>
-            Purchase successful! Gold Left: {gold}, Level: {level}
-          </div>
-        ) : (
-          <div>Purchase failed. Please try again.</div>
-        )}
-        <Button onClick={() => setModalOpen(false)} title="Close" />
+        <div>
+          {isPurchaseSuccess ? (
+            <p>
+              Purchase successful! Gold Left: {gold}, Level: {level}, Lives: {lives}
+            </p>
+          ) : (
+            <div>Purchase failed. Please try again.</div>
+          )}
+          <Button onClick={() => setModalOpen(false)} title="Close" />
+        </div>
       </ModalComponent>
     </div>
   );

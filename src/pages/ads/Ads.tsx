@@ -24,6 +24,13 @@ interface AdData {
   probability: string;
 }
 
+interface AdResponse {
+  success: boolean;
+  score?: number;
+  gold?: number;
+  lives: number;
+}
+
 const Ads: React.FC = () => {
   const { gameId, score, gold, lives, level } = useSelector((state: RootState) => state.game);
   const handleError = useErrorHandler();
@@ -39,6 +46,35 @@ const Ads: React.FC = () => {
   });
   const dispatch = useDispatch();
 
+  const handleAdResponse = (response: AdResponse) => {
+    if (response.success) {
+      dispatch(
+        updateStats({
+          score: response.score,
+          gold: response.gold,
+          lives: response.lives,
+        })
+      );
+      setMissionSuccess(true);
+    } else {
+      dispatch(
+        updateStats({
+          lives: response.lives,
+        })
+      );
+      setMissionSuccess(false);
+    }
+    setModalOpen(true);
+  };
+
+  const navigateAfterAd = (lives: number) => {
+    if (lives > 0) {
+      refetch();
+    } else {
+      navigate(ApplicationRoutes.GAME_OVER);
+    }
+  };
+
   const handlePlay = async (adId: string) => {
     if (!gameId) {
       const errorMessage = 'Game ID is required to solve an ad.';
@@ -49,31 +85,11 @@ const Ads: React.FC = () => {
     try {
       const decodedAdId = decodeBase64(adId);
       const response = await solveAd({ gameId, adId: decodedAdId }).unwrap();
-      if (response.success) {
-        dispatch(
-          updateStats({
-            score: response.score,
-            gold: response.gold,
-            lives: response.lives,
-          })
-        );
-        setMissionSuccess(true);
-        setModalOpen(true);
-      } else {
-        dispatch(
-          updateStats({
-            lives: response.lives,
-          })
-        );
-        setMissionSuccess(false);
-        setModalOpen(true);
-      }
-      if (response.lives > 0) {
-        refetch();
-      } else {
-        navigate(ApplicationRoutes.GAME_OVER);
-      }
+
+      handleAdResponse(response);
+      navigateAfterAd(response.lives);
     } catch (err) {
+      refetch();
       const errorMessage = 'Failed to solve the ad:';
       handleError(errorMessage, err, 'Ads - handlePlay, solveAd');
     }
