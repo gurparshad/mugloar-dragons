@@ -48,3 +48,9 @@
 .button.failure:hover {
   background-color: $color-button-failure-hover;
 }
+
+button:focus,
+.button:focus {
+  outline: 2px solid $color-primary;
+  outline-offset: 2px;
+}

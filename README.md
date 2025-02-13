@@ -78,3 +78,50 @@ While it's possible to build small applications using simpler tools like the Con
 - Sort Configuration can also be stored in the local storage.
 - UI can always be improved for example the the score and sorting section could be more visually appealing.
 - Closing the Modal when user click outside the modal (but depends)
+- Accessibility. user should be able to navigate with the tab and access everything.
+
+Focus was on app structure and less on CSS. The area of focus was very thoroughly solved.
+
+Notable features
+
+- Demo video is well presented, the app description is well verbalized and articulated.
+
+- Netlify deploy
+
+- Vertical layout (header, body, footer)
+
+- Card design
+
+- Minimal CSS
+
+- Sort by criteria
+
+- Score board
+
+- Local storage
+
+- Docker solution
+
+- Thorough readme.md
+
+- Base64 decoder
+
+- Version control
+
+- Redux architecture captures the app logic concisely
+
+- Thorough use of TypeScript
+
+- Well composed routing and hooks (useErrorHandler, useStartGame)
+
+- Using constants for routes
+
+Proposals for improvement
+
+- Use expressive commit messages
+
+- Contain the horizontal layout
+
+- Replace some of the Modals with a non-blocking UX
+
+- Accessibility (focus ring, modal enter/esc key press)
