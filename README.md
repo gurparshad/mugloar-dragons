@@ -1,4 +1,4 @@
-# Dragons of Mugloar
+# Dragons game
 
 Here is the live demo of the application deployed on netlify.
 https://mugloar-dragon.netlify.app/
